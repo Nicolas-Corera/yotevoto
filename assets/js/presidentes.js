@@ -190,7 +190,7 @@ function mostrar(idx) {
           <span class="puesto">?</span>
           <div class="avatar">${cara(c[1] + c[0])}</div>
           <div><div class="linea"><strong>${esc(c[1])}</strong><span class="lst">Lista N° ${pad3(c[0])}</span></div>
-            <p class="prop" title="Tocá para leer completa">${esc(plano(c[2]))}</p>
+            <a class="prop" href="/muro/?lista=${c[0]}" title="Ver esta propuesta en el muro">${esc(plano(c[2]))}</a>
             <div class="pista secreta">${ICONO_CANDADO} Voto secreto hasta el domingo</div></div>
         </article>`,
       )
@@ -343,7 +343,8 @@ $("semanas").addEventListener("click", (e) => {
   verPestana(b);
 });
 $("resultado").addEventListener("click", (e) => {
-  const p = e.target.closest(".prop");
+  /* semanas cerradas: la propuesta ya no está en el muro, se despliega acá; en la semana abierta es un link al muro */
+  const p = e.target.closest("p.prop");
   if (p) p.classList.toggle("abierta");
 });
 

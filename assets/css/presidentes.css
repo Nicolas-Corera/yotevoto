@@ -262,11 +262,22 @@ svg.ic {
   cursor: pointer;
   display: -webkit-box;
   line-clamp: 2;
+  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  height: calc(1.45em * 2); /* siempre 2 líneas: todas las filas miden lo mismo */
 }
 .prop.abierta {
   display: block;
+  height: auto;
+}
+a.prop {
+  color: inherit;
+  text-decoration: none;
+}
+a.prop:hover,
+a.prop:focus-visible {
+  text-decoration: underline;
 }
 .pista {
   position: relative;

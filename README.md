@@ -45,6 +45,7 @@ Sitio web estático con backend en tiempo real, voto anónimo sin registro y un 
 - **Editor con formato:** negrita, cursiva, subrayado, viñetas y lista por artículos (*Art. 1°, Art. 2°…*) con vista previa.
 - **Muro de boletas** acomodado en columnas (bento), cada boleta con su propio alto, con carga progresiva y actualización en vivo.
 - **Voto secreto** con la posibilidad de cambiar el voto.
+- **Desde Presidentes** cada propuesta de la semana abierta lleva al muro, directo a su boleta (`/muro/?lista=<N°>`).
 - **Reporte de contenido:** al llegar a 5 reportes distintos, la propuesta se oculta sola.
 - **Escrutinio semanal** con ganador, porcentajes, participación total y navegación por semanas anteriores.
 - **Participación en vivo:** el total de votos emitidos sube en tiempo real, sin revelar el reparto.
@@ -294,13 +295,15 @@ Las claves de servicio y las contraseñas **no deben subirse al repositorio** (`
 ## Operación y mantenimiento
 
 - **Datos de demostración:** `supabase/seed.sql` carga propuestas y semanas de ejemplo con votos falsos. Es **solo para desarrollo**.
-- **Vaciar los datos antes de salir:** *no usar* `truncate … cascade` (arrastra las semanas). Usar:
+- **Vaciar los datos antes de salir** (deja todo en cero: la semana abierta pasa a ser la **1** y las listas vuelven a la **N° 1**). *No usar* `truncate … cascade` (arrastra las semanas). Es destructivo y no se deshace:
   ```sql
   update public.semanas set ganador_id = null;
-  truncate public.votos, public.reportes, public.limites;
+  truncate public.votos, public.reportes, public.limites, public.escrutinio;
   delete from public.participacion;
   delete from public.propuestas;
   delete from public.semanas where n <> (select min(n) from public.semanas where not cerrada);
+  update public.semanas set n = 1 where not cerrada;
+  alter table public.propuestas alter column id restart with 1;
   ```
 - **Cierre manual de una semana** (pruebas): `select public.cerrar_semana(true);` (solo desde el SQL Editor)
 - **Moderación:** una propuesta oculta tiene `estado = 'oculta'`. Para restituirla (queda protegida y se borran sus reportes), en el SQL Editor: `select public.restituir_propuesta(<id>);`

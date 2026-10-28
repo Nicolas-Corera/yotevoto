@@ -234,3 +234,22 @@ main {
   position: static;
   animation: none;
 }
+
+/* Propuesta a la que se llegó desde Presidentes */
+.celda.resaltada .boleta {
+  animation: resalte 2.4s ease-out;
+}
+@keyframes resalte {
+  0%, 60% {
+    box-shadow: 0 0 0 6px var(--sol), 6px 6px 0 var(--marino);
+  }
+  100% {
+    box-shadow: 6px 6px 0 var(--marino);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .celda.resaltada .boleta {
+    animation: none;
+    outline: 4px solid var(--sol);
+  }
+}

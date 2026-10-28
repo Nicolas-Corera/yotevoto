@@ -345,7 +345,9 @@ let tourListo = false;
 const iniciarTour = () => {
   if (tourListo) return;
   tourListo = true;
-  setTimeout(() => Tour.iniciar("muro", PASOS_TOUR, GANCHOS_TOUR), 700); /* deja terminar la entrada de las boletas */
+  /* si llegó a una propuesta puntual (?lista=), el tutorial no se abre solo: bloquea el scroll (el "?" sigue andando) */
+  if (!new URLSearchParams(location.search).has("lista"))
+    setTimeout(() => Tour.iniciar("muro", PASOS_TOUR, GANCHOS_TOUR), 700); /* deja terminar la entrada de las boletas */
   Tour.ayuda("muro", PASOS_TOUR, GANCHOS_TOUR);
 };
 
@@ -460,8 +462,31 @@ const recargarMuro = () => {
   temporizador = setTimeout(cargarMuro, 2000);
 };
 
-cargarMuro().then(() =>
-  API.db
+/* /muro/?lista=ID (desde Presidentes): se cargan tandas hasta encontrarla, se scrollea hasta ahí y se resalta */
+async function irALista() {
+  const id = Number(new URLSearchParams(location.search).get("lista"));
+  if (!Number.isSafeInteger(id) || id < 1) return;
+  for (let k = 0; k < 80 && !veces.has(id) && !fin; k++) {
+    if (cargando) await new Promise((r) => setTimeout(r, 60));
+    else await cargarMas();
+  }
+  if (!veces.has(id)) return toast("Esa propuesta ya no está en el muro.", "info");
+  acomodar();
+  const p = pos.get(id);
+  if (!p) return;
+  scrollTo({ top: bento.getBoundingClientRect().top + scrollY + p.top - 140, behavior: "instant" }); /* salto directo, como un ancla */
+  ventana(); /* monta ya las boletas de esa zona, sin esperar al próximo cuadro */
+  for (let k = 0; k < 20 && !montadas.get(id); k++) await new Promise((r) => setTimeout(r, 100));
+  const el = montadas.get(id);
+  if (el) {
+    el.classList.add("resaltada");
+    setTimeout(() => el.classList.remove("resaltada"), 2600);
+  }
+}
+
+cargarMuro().then(() => {
+  irALista();
+  return API.db
     .channel("avisos", { config: { private: true } })
     .on("postgres_changes", { event: "INSERT", schema: "public", table: "propuestas" }, ({ new: p }) => anexar(p))
     .on("postgres_changes", { event: "*", schema: "public", table: "semanas" }, recargarMuro) /* cerró una semana / abrió otra */
@@ -476,8 +501,8 @@ cargarMuro().then(() =>
       if (estado !== "SUBSCRIBED") return;
       if (!primeraConexion) cargarMuro(); /* si se cortó la conexión, se pone al día */
       primeraConexion = false;
-    }),
-);
+    });
+});
 
 /* ---------- Toasts ---------- */
 function toast(msg, tipo = "", ms = 3200) {
