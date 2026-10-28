@@ -43,7 +43,7 @@ Sitio web estático con backend en tiempo real, voto anónimo sin registro y un 
 ### Para quien participa
 - **Sin registro ni login:** entrar, escribir y votar, sin perder tiempo.
 - **Editor con formato:** negrita, cursiva, subrayado, viñetas y lista por artículos (*Art. 1°, Art. 2°…*) con vista previa.
-- **Muro de boletas** acomodado en columnas sin huecos, con carga progresiva y actualización en vivo.
+- **Muro de boletas** acomodado en columnas (bento), cada boleta con su propio alto, con carga progresiva y actualización en vivo.
 - **Voto secreto** con la posibilidad de cambiar el voto.
 - **Reporte de contenido:** al llegar a 5 reportes distintos, la propuesta se oculta sola.
 - **Escrutinio semanal** con ganador, porcentajes, participación total y navegación por semanas anteriores.
@@ -222,7 +222,7 @@ Todas responden JSON con `ok` y, ante un error, un código y un mensaje legible.
 - **Imágenes** de fondo optimizadas (WebP, máximo 1920 px).
 - **Muro virtualizado:** el acomodo se calcula para todas las boletas, pero solo las visibles (más un margen de una pantalla) existen en el DOM; el resto se monta y desmonta con el scroll.
 - **Carga por tandas:** el muro pide las propuestas de a 24, por identificador, y trae la siguiente tanda al acercarse al final. Lo ya cargado no se mueve.
-- **Acomodo por bloques:** cada tanda forma un rectángulo sin huecos; los bloques se apilan.
+- **Acomodo por bloques:** cada tanda se acomoda sola y los bloques se apilan; ninguna boleta se estira, así que los bordes pueden quedar dispares.
 - **Canvas** de la bandera: se anima solo mientras es visible.
 - **Versionado de archivos** (`?v=…`) para evitar caché obsoleto tras cada cambio.
 - Sin dependencias pesadas ni empaquetado: HTML, CSS y JS directos.

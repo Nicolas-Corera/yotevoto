@@ -54,29 +54,22 @@ const boleta = (p, i) => `
 const bento = $("bento");
 
 /* ---------- Bento en caja ----------
-         Reparte las boletas en columnas para que el conjunto forme un
-         rectángulo sin huecos:
+         Reparte las boletas en columnas, cada una con SU propio alto:
          - Las boletas de texto largo pueden ocupar 2 columnas.
-         - Si una columna queda más baja, la boleta de arriba se estira.
+         - Nunca se estira una boleta: si una columna queda más baja, queda más baja.
          - Se prueban muchas combinaciones (orden casi cronológico) y se
-           elige la que menos estira. Es determinista: siempre da lo mismo. */
+           elige la que deja menos espacio vacío. Es determinista: siempre da lo mismo. */
 const GAP_X = 30,
   GAP_Y = 34,
   COL_MIN = 270;
 let anchoPrevio = 0;
 
 function repartir(orden, ancha, cols, alto) {
+  /* Cada boleta conserva SU altura (nunca se estira). `desperdicio` mide el espacio vacío que queda:
+     debajo de la columna más baja cuando entra una ancha, y el borde desparejo del final. */
   const h = Array(cols).fill(0); // próxima posición libre de cada columna
-  const ultima = Array(cols).fill(null);
   const items = [];
   let desperdicio = 0;
-  const puedeEstirar = (it) =>
-    it && !it.ancha && it.cols.every((c) => ultima[c] === it);
-  const estirar = (it, d) => {
-    it.h += d;
-    desperdicio += d;
-    it.cols.forEach((c) => (h[c] = it.top + it.h + GAP_Y));
-  };
 
   for (const i of orden) {
     let a = -1;
@@ -84,10 +77,7 @@ function repartir(orden, ancha, cols, alto) {
       let mejor = Infinity;
       for (let c = 0; c < cols - 1; c++) {
         if ((h[c] === 0) !== (h[c + 1] === 0)) continue; // evita hueco arriba
-        const dif = Math.abs(h[c] - h[c + 1]);
-        if (dif > 0.5 && !puedeEstirar(ultima[h[c] < h[c + 1] ? c : c + 1]))
-          continue;
-        const costo = Math.max(h[c], h[c + 1]) + dif;
+        const costo = Math.max(h[c], h[c + 1]) + Math.abs(h[c] - h[c + 1]);
         if (costo < mejor) {
           mejor = costo;
           a = c;
@@ -97,38 +87,19 @@ function repartir(orden, ancha, cols, alto) {
     }
     let it;
     if (a >= 0) {
-      const dif = Math.abs(h[a] - h[a + 1]);
-      if (dif > 0.5) estirar(ultima[h[a] < h[a + 1] ? a : a + 1], dif);
-      it = {
-        i,
-        ancha: true,
-        cols: [a, a + 1],
-        top: Math.max(h[a], h[a + 1]),
-        h: alto[i].w,
-      };
+      desperdicio += Math.abs(h[a] - h[a + 1]);
+      it = { i, ancha: true, cols: [a, a + 1], top: Math.max(h[a], h[a + 1]), h: alto[i].w };
     } else {
       let c = 0;
       for (let k = 1; k < cols; k++) if (h[k] < h[c] - 0.5) c = k;
       it = { i, ancha: false, cols: [c], top: h[c], h: alto[i].n };
     }
-    it.cols.forEach((c) => {
-      h[c] = it.top + it.h + GAP_Y;
-      ultima[c] = it;
-    });
+    it.cols.forEach((c) => (h[c] = it.top + it.h + GAP_Y));
     items.push(it);
   }
 
-  // Igualar el final de todas las columnas
   const fin = Math.max(...h);
-  for (let c = 0; c < cols; c++) {
-    if (h[c] >= fin - 0.5) continue;
-    const it = ultima[c];
-    if (!it || !puedeEstirar(it)) {
-      if (it && it.ancha && it.cols.every((k) => ultima[k] === it))
-        estirar(it, fin - h[c]);
-      else return null;
-    } else estirar(it, fin - h[c]);
-  }
+  for (let c = 0; c < cols; c++) desperdicio += fin - h[c]; // borde desparejo: se prefiere que quede parejo
   return { items, total: fin - GAP_Y, desperdicio };
 }
 
