@@ -1,0 +1,546 @@
+:root {
+  --cielo: #74acdf;
+  --marino: #0f2a4a;
+  --sol: #f6b40e;
+  --blanco: #ffffff;
+  --papel: #eef4fa;
+  --error: #b3261e;
+  --serif: "Young Serif", Georgia, "Times New Roman", serif;
+  --sans: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+html {
+  height: 100%;
+}
+html,
+body {
+  margin: 0;
+}
+body {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  font-family: var(--sans);
+  color: var(--marino);
+  background: var(--cielo);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+:focus-visible {
+  outline: 3px solid var(--marino);
+  outline-offset: 3px;
+}
+
+/* ---------- Transición entre páginas (View Transitions) ----------
+   La página vieja queda opaca y la nueva aparece encima: sin parpadeos. */
+@view-transition {
+  navigation: auto;
+}
+.marca {
+  view-transition-name: marca;
+}
+@keyframes vt-entra {
+  from {
+    opacity: 0;
+  }
+}
+::view-transition-image-pair(root) {
+  isolation: auto;
+}
+::view-transition-old(root),
+::view-transition-new(root) {
+  mix-blend-mode: normal;
+}
+::view-transition-old(root) {
+  animation: none;
+}
+::view-transition-new(root) {
+  animation: vt-entra 0.35s ease-out both;
+}
+::view-transition-group(marca) {
+  animation-duration: 0.35s;
+}
+@media (prefers-reduced-motion: reduce) {
+  @view-transition {
+    navigation: none;
+  }
+}
+
+/* ---------- Barra superior ---------- */
+.nav {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px clamp(18px, 4vw, 40px);
+  /* sin fondo; solo lo toma cuando la página necesita scroll (clase .con-fondo, ver home.js).
+     El borde existe siempre (transparente) para que nada cambie de lugar. */
+  border-bottom: 3px solid transparent;
+  transition:
+    background 0.2s,
+    border-color 0.2s;
+}
+.nav.con-fondo {
+  background: var(--blanco);
+  border-bottom-color: var(--marino);
+}
+.marca {
+  font-family: var(--serif);
+  font-size: 1.25rem;
+  line-height: 28px;
+  align-self: flex-start; /* anclado arriba: misma posición (40, 24) que en muro y presidentes */
+  margin-top: 6px;
+  color: var(--blanco);
+  text-decoration: none;
+  transition: color 0.4s;
+}
+.btn-muro {
+  font: 800 0.95rem var(--sans);
+  color: var(--marino);
+  background: var(--blanco);
+  border: 2px solid var(--marino);
+  border-radius: 10px;
+  padding: 9px 18px;
+  text-decoration: none;
+  box-shadow: 4px 4px 0 var(--marino);
+  visibility: hidden;
+  opacity: 0;
+  transition:
+    transform 0.12s,
+    box-shadow 0.12s,
+    background 0.15s,
+    opacity 0.4s;
+}
+.btn-muro:hover {
+  background: var(--cielo);
+  transform: translate(-1px, -1px);
+  box-shadow: 5px 5px 0 var(--marino);
+}
+.btn-muro:active {
+  transform: translate(4px, 4px);
+  box-shadow: 0 0 0 var(--marino);
+}
+body.listo .marca {
+  color: var(--marino);
+}
+body.listo .btn-muro {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* ---------- Intro ---------- */
+.intro {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  display: grid;
+  place-items: center;
+  background: var(--cielo);
+  overflow: hidden;
+  cursor: pointer;
+}
+.bandera {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.intro-texto {
+  position: relative;
+  text-align: center;
+  width: calc(100% - 40px);
+  max-width: 1000px;
+  padding: clamp(20px, 4vw, 40px) clamp(18px, 4vw, 48px);
+  background: var(--blanco);
+  border: 4px solid var(--marino);
+  border-radius: 14px;
+  box-shadow: 10px 10px 0 var(--marino);
+  opacity: 0;
+}
+.intro-texto p {
+  margin: 0;
+  opacity: 0;
+}
+.intro-previa {
+  font-size: clamp(1rem, 2.4vw, 1.25rem);
+  font-weight: 500;
+  color: var(--marino);
+  margin-bottom: 14px !important;
+}
+.intro-titulo {
+  font-family: var(--serif);
+  font-size: clamp(2.2rem, 6.5vw, 5.5rem);
+  line-height: 1.05;
+  color: var(--marino);
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+.intro-saltar {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  font: 700 0.85rem var(--sans);
+  color: var(--marino);
+  background: var(--blanco);
+  border: 2px solid var(--marino);
+  border-radius: 999px;
+  padding: 6px 14px;
+  box-shadow: 3px 3px 0 var(--marino);
+}
+
+/* ---------- Formulario ---------- */
+.pagina {
+  flex: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr); /* el contenido no ensancha la columna (celulares de 320 px) */
+  place-items: center;
+  padding: 96px 20px 48px;
+  background: var(--papel);
+  visibility: hidden;
+  opacity: 0;
+}
+.formulario {
+  width: 100%;
+  max-width: 560px;
+}
+.formulario h1 {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(2rem, 6vw, 3rem);
+  line-height: 1.08;
+  margin: 0 0 8px;
+}
+.bajada {
+  margin: 0 0 28px;
+  font-size: 1.05rem;
+  line-height: 1.5;
+  max-width: 46ch;
+}
+.campo {
+  margin-bottom: 20px;
+}
+.campo label {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.campo .ayuda {
+  font-weight: 500;
+  font-size: 0.875rem;
+  opacity: 0.7;
+}
+input,
+textarea {
+  width: 100%;
+  font: 500 1.05rem/1.5 var(--sans);
+  color: var(--marino);
+  background: var(--blanco);
+  border: 2px solid var(--marino);
+  border-radius: 10px;
+  padding: 13px 15px;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+}
+input::placeholder,
+textarea::placeholder {
+  color: var(--marino);
+  opacity: 0.45;
+}
+textarea {
+  height: 280px;
+  resize: none;
+}
+input,
+.editor {
+  box-shadow: 5px 5px 0 var(--marino);
+  transition:
+    transform 0.12s,
+    box-shadow 0.12s,
+    border-color 0.2s;
+}
+input:focus,
+textarea:focus {
+  outline: none;
+}
+input:focus,
+.editor:has(textarea:focus) {
+  transform: translate(5px, 5px);
+  box-shadow: 0 0 0 var(--marino);
+}
+.campo.invalido input {
+  border-color: var(--error);
+}
+.campo.invalido .editor {
+  border-color: var(--error);
+}
+
+/* ---------- Editor: la barra es una banda presidencial ---------- */
+.editor {
+  border: 2px solid var(--marino);
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--blanco);
+}
+.barra {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  height: 54px;
+  padding: 0 10px 0 8px;
+  background: linear-gradient(
+    var(--cielo) 0 33.33%,
+    var(--blanco) 33.33% 66.66%,
+    var(--cielo) 66.66%
+  );
+  border-bottom: 2px solid var(--marino);
+}
+.sello {
+  width: 42px;
+  height: 42px;
+  flex: none;
+  margin-right: 2px;
+}
+.fmt {
+  flex: none;
+  min-width: 34px;
+  height: 34px;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  font: 700 1rem var(--sans);
+  color: var(--marino);
+  background: var(--blanco);
+  border: 2px solid var(--marino);
+  border-radius: 8px;
+  box-shadow: 2px 2px 0 var(--marino);
+  cursor: pointer;
+  transition:
+    transform 0.1s,
+    box-shadow 0.1s,
+    background 0.15s;
+}
+.fmt:hover {
+  background: var(--sol);
+}
+.fmt:active,
+.fmt[aria-pressed="true"] {
+  transform: translate(2px, 2px);
+  box-shadow: 0 0 0 var(--marino);
+}
+.fmt[aria-pressed="true"] {
+  background: var(--sol);
+}
+.fmt:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  background: var(--blanco);
+  transform: none;
+  box-shadow: 2px 2px 0 var(--marino);
+}
+.g-b {
+  font-weight: 800;
+}
+.g-i {
+  font-style: italic;
+}
+.g-u {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+.g-v {
+  font-size: 1.4rem;
+  line-height: 1;
+}
+.g-a {
+  font-size: 0.72rem;
+  font-weight: 800;
+}
+.editor [hidden] {
+  display: none !important;
+}
+.fmt.ver {
+  margin-left: auto;
+  padding: 0 12px;
+  font-size: 0.84rem;
+  white-space: nowrap;
+}
+.barra {
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.barra::-webkit-scrollbar {
+  display: none;
+}
+@media (max-width: 420px) {
+  .barra {
+    gap: 4px;
+    padding: 0 8px 0 6px;
+  }
+  .sello {
+    width: 36px;
+    height: 36px;
+  }
+  .fmt {
+    min-width: 30px;
+    height: 30px;
+  }
+  .fmt.ver {
+    padding: 0 8px;
+    font-size: 0.74rem;
+  }
+}
+.editor textarea {
+  display: block;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  background: var(--blanco);
+}
+.editor textarea:focus {
+  border: 0;
+  box-shadow: none;
+}
+.vista {
+  height: 280px;
+  overflow-y: auto;
+  padding: 13px 15px;
+  font: 500 1.05rem/1.5 var(--sans);
+  overflow-wrap: anywhere;
+}
+.vista.vacia {
+  opacity: 0.45;
+}
+/* ---------- Toasts ---------- */
+.toasts {
+  position: fixed;
+  z-index: 40;
+  left: 50%;
+  bottom: 20px;
+  transform: translateX(-50%);
+  width: calc(100% - 32px);
+  max-width: 440px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  pointer-events: none;
+}
+.toast {
+  pointer-events: auto;
+  cursor: pointer;
+  font: 700 0.98rem/1.35 var(--sans);
+  color: var(--marino);
+  background: var(--cielo);
+  border: 3px solid var(--marino);
+  border-radius: 10px;
+  padding: 13px 16px;
+  box-shadow: 5px 5px 0 var(--marino);
+}
+.toast.error {
+  background: #ffb4ab;
+}
+.toast.ok {
+  background: #b7f0c1;
+}
+.toast.info {
+  background: var(--sol);
+}
+.btn-publicar {
+  width: 100%;
+  font: 700 1.1rem var(--sans);
+  color: var(--marino);
+  background: var(--sol);
+  border: 2px solid var(--marino);
+  border-radius: 10px;
+  padding: 15px 20px;
+  cursor: pointer;
+  box-shadow: 4px 4px 0 var(--marino);
+  transition:
+    transform 0.12s,
+    box-shadow 0.12s;
+}
+.btn-publicar:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 5px 5px 0 var(--marino);
+}
+.btn-publicar:active {
+  transform: translate(3px, 3px);
+  box-shadow: 1px 1px 0 var(--marino);
+}
+.btn-publicar:disabled {
+  opacity: 0.7;
+  cursor: wait;
+  transform: none;
+  box-shadow: 4px 4px 0 var(--marino);
+}
+
+/* Spinner mientras se publica */
+.btn-publicar.cargando::before {
+  content: "";
+  display: inline-block;
+  width: 0.9em;
+  height: 0.9em;
+  margin-right: 0.55em;
+  vertical-align: -0.1em;
+  border: 2.5px solid var(--marino);
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: girar 0.7s linear infinite;
+}
+@keyframes girar {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn-publicar.cargando::before {
+    animation-duration: 2s; /* sigue indicando "cargando", pero más suave */
+  }
+  .btn-publicar,
+  .btn-muro,
+  .fmt,
+  input,
+  .editor {
+    transition: none;
+  }
+}
+
+/* Footer de texto: aparece junto con el formulario */
+.pie-min {
+  background: var(--papel);
+  border-top: 2px solid rgba(15, 42, 74, 0.15);
+}
+body:not(.listo) .pie-min {
+  visibility: hidden;
+}
+
+/* 320 px: la barra de formato entra completa (sin el sello) en vez de quedar cortada */
+@media (max-width: 340px) {
+  .sello {
+    display: none;
+  }
+  .barra {
+    gap: 3px;
+    padding: 0 6px;
+  }
+  .fmt {
+    min-width: 28px;
+    height: 28px;
+  }
+  .fmt.ver {
+    padding: 0 7px;
+    font-size: 0.7rem;
+  }
+}

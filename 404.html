@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>404 · Página no encontrada · Yo Te Voto</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Figtree:wght@400;500;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/assets/css/404.css?v=20261029-2" />
+    <link rel="stylesheet" href="/assets/css/consent.css?v=20261029-2" />
+    <script type="speculationrules">
+      { "prerender": [{ "where": { "href_matches": "/*" }, "eagerness": "moderate" }] }
+    </script>
+  </head>
+  <body>
+    <canvas class="bandera" id="bandera" aria-hidden="true"></canvas>
+
+    <header class="nav">
+      <a class="marca" href="/" data-ruta="/"
+        >Yo Te Voto</a
+      >
+    </header>
+
+    <main class="centro">
+      <article class="tarjeta" aria-labelledby="titulo">
+        <div class="cabeza">
+          <div class="lista"><small>Lista N°</small><b>404</b></div>
+        </div>
+        <div class="cuerpo">
+          <p class="pres"><span>Presidente:</span><strong>Nadie</strong></p>
+          <h1 id="titulo">Esta página no existe</h1>
+          <p class="texto">
+            La propuesta que buscás fue vetada, se perdió en el Congreso o nunca
+            llegó a votarse. Volvé al muro y seguí gobernando.
+          </p>
+          <a class="cta" href="/muro/" data-ruta="/muro/"
+            >Volver al muro</a
+          >
+        </div>
+      </article>
+    </main>
+    <script src="/assets/js/404.js?v=20261029-2"></script>
+    <script defer src="/assets/js/consent.js?v=20261029-2"></script>
+  </body>
+</html>

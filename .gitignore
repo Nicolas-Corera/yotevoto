@@ -1,0 +1,10 @@
+.env
+.env.*
+supabase/.temp/
+supabase/.branches/
+.bak/
+.playwright-mcp/
+dist/
+node_modules/
+.claude/
+.vscode/

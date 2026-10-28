@@ -1,0 +1,94 @@
+/* Banner de cookies. Colores propios para que funcione en cualquier página. */
+.cookies {
+  position: fixed;
+  z-index: 70;
+  left: 18px;
+  bottom: 18px;
+  width: min(440px, calc(100% - 36px));
+  padding: 16px 18px 18px;
+  font: 500 0.92rem/1.45 "Figtree", system-ui, sans-serif;
+  color: #0f2a4a;
+  background: #fff;
+  border: 3px solid #0f2a4a;
+  border-radius: 12px;
+  box-shadow: 6px 6px 0 #0f2a4a;
+  animation: cookies-sube 0.45s cubic-bezier(0.2, 1.3, 0.4, 1) 0.4s both;
+}
+.cookies.sale {
+  animation: cookies-baja 0.3s ease-in forwards;
+}
+.cookies p {
+  margin: 0 0 12px;
+}
+.cookies strong {
+  font: 400 1.1rem "Young Serif", Georgia, serif;
+  display: block;
+  margin-bottom: 4px;
+}
+/* link de texto como los del footer y "Saltar" del tutorial: se subraya al pasar el mouse */
+.cookies a {
+  color: inherit;
+  font-weight: 500;
+  text-decoration: none;
+}
+.cookies a:hover,
+.cookies a:focus-visible {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 2px;
+}
+.cookies-btns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.cookies-btns button {
+  flex: 1 1 auto;
+  font: 700 0.9rem "Figtree", system-ui, sans-serif;
+  color: #0f2a4a;
+  background: #fff;
+  border: 2px solid #0f2a4a;
+  border-radius: 8px;
+  padding: 9px 14px;
+  box-shadow: 3px 3px 0 #0f2a4a;
+  cursor: pointer;
+  transition:
+    transform 0.1s,
+    box-shadow 0.1s,
+    background 0.15s;
+}
+.cookies-btns button:hover {
+  background: #74acdf;
+}
+.cookies-btns .ok {
+  background: #f6b40e;
+}
+.cookies-btns button:active {
+  transform: translate(3px, 3px);
+  box-shadow: 0 0 0 #0f2a4a;
+}
+@keyframes cookies-sube {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+}
+@keyframes cookies-baja {
+  to {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+}
+@media (max-width: 520px) {
+  .cookies {
+    left: 12px;
+    bottom: 12px;
+    width: calc(100% - 24px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cookies,
+  .cookies.sale {
+    animation: none;
+  }
+}

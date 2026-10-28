@@ -1,0 +1,203 @@
+/* Tutorial guiado: foco sobre un elemento + tooltip con flecha */
+.tour-velo {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+}
+.tour-foco {
+  position: fixed;
+  z-index: 81;
+  border-radius: 12px;
+  border: 3px solid #f6b40e;
+  box-shadow: 0 0 0 9999px rgba(8, 20, 38, 0.62);
+  pointer-events: none;
+  transition:
+    top 0.35s ease,
+    left 0.35s ease,
+    width 0.35s ease,
+    height 0.35s ease;
+}
+.tour-tip {
+  transition:
+    top 0.35s ease,
+    left 0.35s ease;
+  position: fixed;
+  z-index: 82;
+  width: min(330px, calc(100vw - 24px));
+  padding: 16px 18px 14px;
+  font: 500 0.95rem/1.45 "Figtree", system-ui, sans-serif;
+  color: #0f2a4a;
+  background: #fff;
+  border: 3px solid #0f2a4a;
+  border-radius: 12px;
+  box-shadow: 6px 6px 0 #0f2a4a;
+  animation: tour-pop 0.3s cubic-bezier(0.2, 1.4, 0.4, 1) both;
+}
+@property --flecha {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 50%;
+}
+.tour-tip::before {
+  transition: left 0.35s ease;
+  /* flecha: un cuadrado girado pegado al borde del lado del elemento */
+  content: "";
+  position: absolute;
+  left: var(--flecha, 50%);
+  width: 16px;
+  height: 16px;
+  background: #fff;
+  border: 3px solid #0f2a4a;
+  transform: translateX(-50%) rotate(45deg);
+}
+.tour-tip[data-lado="bottom"]::before {
+  top: -10px;
+  border-right: 0;
+  border-bottom: 0;
+}
+.tour-tip[data-lado="top"]::before {
+  bottom: -10px;
+  border-left: 0;
+  border-top: 0;
+}
+.tour-tip h3 {
+  margin: 0 0 4px;
+  font: 400 1.2rem/1.2 "Young Serif", Georgia, serif;
+}
+.tour-tip p {
+  margin: 0 0 14px;
+}
+.tour-pie {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.tour-pie small {
+  margin-right: auto;
+  font-weight: 700;
+  opacity: 0.6;
+}
+.tour-pie button {
+  /* mismo estilo que los botones del footer del muro (.cta) */
+  font: 800 0.9rem "Figtree", system-ui, sans-serif;
+  color: #0f2a4a;
+  background: #fff;
+  border: 2px solid #0f2a4a;
+  border-radius: 10px;
+  padding: 9px 14px;
+  box-shadow: 4px 4px 0 #0f2a4a;
+  cursor: pointer;
+  transition:
+    transform 0.12s,
+    box-shadow 0.12s,
+    background 0.15s;
+}
+.tour-pie button:hover {
+  background: #74acdf;
+  transform: translate(-1px, -1px);
+  box-shadow: 5px 5px 0 #0f2a4a;
+}
+.tour-pie .sig {
+  background: #f6b40e;
+}
+.tour-pie .sig:hover {
+  background: #f6b40e;
+}
+.tour-pie button:active {
+  transform: translate(4px, 4px);
+  box-shadow: 0 0 0 #0f2a4a;
+}
+/* botón "?" para volver a ver el tutorial */
+.tour-ayuda {
+  position: fixed;
+  z-index: 60;
+  right: 18px;
+  bottom: 18px;
+  width: 44px;
+  height: 44px;
+  font: 800 1.2rem "Figtree", system-ui, sans-serif;
+  color: #0f2a4a;
+  background: #f6b40e;
+  border: 3px solid #0f2a4a;
+  border-radius: 50%;
+  box-shadow: 4px 4px 0 #0f2a4a;
+  cursor: pointer;
+  transition:
+    transform 0.12s,
+    box-shadow 0.12s,
+    background 0.15s;
+}
+.tour-ayuda:hover {
+  background: #ffc93c;
+  transform: translate(-1px, -1px);
+  box-shadow: 5px 5px 0 #0f2a4a;
+}
+
+.tour-ayuda:active {
+  transform: translate(4px, 4px);
+  box-shadow: 0 0 0 #0f2a4a;
+}
+@keyframes tour-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tour-foco {
+    transition: none;
+  }
+  .tour-tip {
+    animation: none;
+  }
+}
+
+/* sin scroll mientras corre el tutorial */
+html.tour-activo {
+  overflow: hidden;
+}
+
+/* "Saltar": link de texto como los del footer (se subraya al pasar el mouse) */
+.tour-pie .saltar {
+  font-weight: 500;
+  background: none;
+  border: 0;
+  box-shadow: none;
+  border-radius: 0;
+  padding: 4px 2px;
+  transform: none;
+}
+.tour-pie .saltar:hover,
+.tour-pie .saltar:focus-visible {
+  background: none;
+  transform: none;
+  box-shadow: none;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 2px;
+}
+.tour-pie .saltar:active {
+  transform: none;
+}
+.tour-pie button:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* el contenido del tooltip aparece con un fundido corto al cambiar de paso */
+.tour-cont {
+  animation: tour-fade 0.25s ease-out both;
+}
+@keyframes tour-fade {
+  from {
+    opacity: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tour-cont,
+  .tour-tip,
+  .tour-tip::before,
+  .tour-ayuda {
+    animation: none;
+    transition: none;
+  }
+}

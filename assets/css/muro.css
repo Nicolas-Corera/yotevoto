@@ -1,0 +1,236 @@
+/* Estilos propios del muro. Lo común está en base.css */
+/* ---------- Muro ---------- */
+main {
+  max-width: 1220px;
+  margin: 0 auto;
+  padding: 150px clamp(16px, 4vw, 40px) 20px;
+}
+@media (max-width: 760px) {
+  main {
+    padding-top: 170px;
+  }
+}
+.encabezado {
+  margin-bottom: 34px;
+  color: var(--blanco);
+}
+.encabezado h1 {
+  font: 400 clamp(2.4rem, 7vw, 4.4rem)/1.04 var(--serif);
+  margin: 0 0 10px;
+}
+.encabezado p {
+  margin: 0;
+  font-size: 1.1rem;
+  max-width: 52ch;
+  line-height: 1.5;
+  opacity: 0.92;
+}
+/* Las boletas se acomodan con JS (ver acomodar()) para que el conjunto
+         forme un rectángulo sin huecos: cada celda va en posición absoluta. */
+.bento {
+  position: relative;
+  margin-bottom: 8px; /* lugar para la sombra de la última fila */
+}
+.celda {
+  position: absolute;
+  animation: entrar 0.55s ease-out both;
+  animation-delay: calc(var(--i) * 70ms);
+}
+@keyframes entrar {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+}
+
+/* Boleta de votación */
+.boleta {
+  background: var(--blanco);
+  border: 3px solid var(--marino);
+  border-radius: 12px;
+  box-shadow: 6px 6px 0 var(--marino);
+  overflow: hidden;
+  height: 100%; /* se estira hasta llenar su lugar en la caja */
+  display: flex;
+  flex-direction: column;
+}
+.cabeza {
+  padding: 10px;
+  border-bottom: 3px solid var(--marino);
+  background: linear-gradient(
+    var(--cielo) 0 33.33%,
+    var(--blanco) 33.33% 66.66%,
+    var(--cielo) 66.66%
+  );
+}
+.lista {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 8px;
+  background: var(--blanco);
+  border: 3px solid var(--marino);
+  border-radius: 8px;
+  padding: 3px 12px 4px;
+}
+.lista small {
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+.lista b {
+  font: 400 1.7rem/1.1 var(--serif);
+  letter-spacing: 0.02em;
+}
+.cuerpo {
+  flex: 1; /* absorbe el espacio extra cuando la boleta se estira */
+  padding: 16px 18px 18px;
+}
+.pres {
+  margin: 0 0 12px;
+  padding-bottom: 9px;
+  border-bottom: 2px solid var(--marino);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 8px;
+}
+.pres span {
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+.pres strong {
+  font: 400 1.2rem/1.2 var(--serif);
+  overflow-wrap: anywhere;
+}
+.texto {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.55;
+  overflow-wrap: anywhere;
+}
+.pie-boleta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 11px 14px;
+  border-top: 3px dashed var(--marino);
+  background: var(--papel);
+}
+.fecha {
+  font-size: 0.82rem;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+.votos {
+  display: flex;
+  gap: 8px;
+}
+.voto {
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  color: var(--marino);
+  background: var(--blanco);
+  border: 2px solid var(--marino);
+  border-radius: 8px;
+  box-shadow: 2px 2px 0 var(--marino);
+  cursor: pointer;
+  transition:
+    transform 0.1s,
+    box-shadow 0.1s,
+    background 0.15s;
+}
+.voto[data-voto="like"]:hover,
+.voto[data-voto="like"][aria-pressed="true"] {
+  background: #b7f0c1;
+}
+.voto[data-voto="dislike"]:hover,
+.voto[data-voto="dislike"][aria-pressed="true"] {
+  background: #ffb4ab;
+}
+.voto[data-voto="report"]:hover,
+.voto[data-voto="report"][aria-pressed="true"] {
+  background: var(--sol);
+}
+.voto:active,
+.voto[aria-pressed="true"] {
+  transform: translate(2px, 2px);
+  box-shadow: 0 0 0 var(--marino);
+}
+.voto .material-symbols-rounded {
+  font-size: 21px;
+}
+.voto[aria-pressed="true"] .material-symbols-rounded {
+  font-variation-settings:
+    "FILL" 1,
+    "wght" 500,
+    "opsz" 24;
+}
+
+/* ---------- Toasts ---------- */
+.toasts {
+  position: fixed;
+  z-index: 50;
+  left: 50%;
+  bottom: 20px;
+  transform: translateX(-50%);
+  width: calc(100% - 32px);
+  max-width: 440px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  pointer-events: none;
+}
+.toast {
+  pointer-events: auto;
+  cursor: pointer;
+  font: 700 0.98rem/1.35 var(--sans);
+  color: var(--marino);
+  background: var(--cielo);
+  border: 3px solid var(--marino);
+  border-radius: 10px;
+  padding: 13px 16px;
+  box-shadow: 5px 5px 0 var(--marino);
+  animation: subir 0.35s cubic-bezier(0.2, 1.4, 0.4, 1);
+  transition:
+    opacity 0.3s,
+    transform 0.3s;
+}
+.toast.ok {
+  background: #b7f0c1;
+}
+.toast.info {
+  background: var(--sol);
+}
+.toast.saliendo {
+  opacity: 0;
+  transform: translateY(16px);
+}
+@keyframes subir {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .celda,
+  .toast {
+    animation: none;
+  }
+}
+
+/* Medición invisible de las boletas (ver acomodar() en muro.js) */
+.bento-medidor {
+  position: absolute;
+  left: -99999px;
+  top: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+.bento-medidor .celda {
+  position: static;
+  animation: none;
+}

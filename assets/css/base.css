@@ -1,0 +1,561 @@
+:root {
+  --cielo: #74acdf;
+  --marino: #0f2a4a;
+  --sol: #f6b40e;
+  --blanco: #fff;
+  --papel: #eef4fa;
+  --serif: "Young Serif", Georgia, "Times New Roman", serif;
+  --sans: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+html {
+  scroll-behavior: smooth;
+}
+body {
+  margin: 0;
+  font-family: var(--sans);
+  color: var(--marino);
+  background: var(--marino);
+  -webkit-font-smoothing: antialiased;
+}
+a {
+  color: inherit;
+}
+
+/* ---------- Transición entre páginas (View Transitions) ----------
+   La página vieja queda opaca y la nueva aparece encima: sin parpadeos. */
+@view-transition {
+  navigation: auto;
+}
+.marca {
+  view-transition-name: marca;
+}
+@keyframes vt-entra {
+  from {
+    opacity: 0;
+  }
+}
+::view-transition-image-pair(root) {
+  isolation: auto;
+}
+::view-transition-old(root),
+::view-transition-new(root) {
+  mix-blend-mode: normal;
+}
+::view-transition-old(root) {
+  animation: none;
+}
+::view-transition-new(root) {
+  animation: vt-entra 0.35s ease-out both;
+}
+::view-transition-group(marca) {
+  animation-duration: 0.35s;
+}
+@media (prefers-reduced-motion: reduce) {
+  @view-transition {
+    navigation: none;
+  }
+}
+
+/* ---------- Scrollbar a tono con la web ---------- */
+/* Solo Firefox: si Chrome/Edge/Safari ven estas dos propiedades,
+         ignoran el estilo ::-webkit-scrollbar de abajo y vuelven las flechas. */
+@supports not selector(::-webkit-scrollbar) {
+  html {
+    scrollbar-width: thin;
+    scrollbar-color: var(--cielo) var(--marino);
+  }
+}
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+::-webkit-scrollbar-button {
+  display: none; /* sin flechas */
+  width: 0;
+  height: 0;
+}
+::-webkit-scrollbar-track {
+  background: var(--marino);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--cielo);
+  border: 2px solid var(--marino);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover,
+::-webkit-scrollbar-thumb:active {
+  background: var(--sol);
+}
+::-webkit-scrollbar-corner {
+  background: var(--marino);
+}
+
+/* ---------- Íconos ---------- */
+.material-symbols-rounded {
+  font-size: 22px;
+  line-height: 1;
+  user-select: none;
+  font-variation-settings:
+    "FILL" 0,
+    "wght" 500,
+    "opsz" 24;
+  transition: font-variation-settings 0.15s;
+}
+:focus-visible {
+  outline: 3px solid var(--sol);
+  outline-offset: 3px;
+}
+
+/* ---------- Fondo con slideshow ----------
+   Cada capa sube con fade (z-index 2) sobre la anterior (z-index 1), que sigue
+   opaca y con su zoom hasta que termina el fade: sin cortes ni saltos. */
+.fondos {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: var(--marino);
+  overflow: hidden;
+}
+.fondo {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transform: scale(1);
+  will-change: opacity, transform;
+  transition:
+    opacity 1.6s ease,
+    transform 0s 1.6s;
+}
+.fondo.previo,
+.fondo.activo {
+  opacity: 1;
+  z-index: 1;
+  transform: scale(1.08);
+  transition:
+    opacity 1.6s ease,
+    transform 9s linear; /* igual en ambas: el zoom no se corta al pasar a previo */
+}
+.fondo.activo {
+  z-index: 2;
+}
+/* Overlay: banda celeste-blanca-celeste (bandera) + velo marino para leer el texto */
+.fondos::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  background:
+    linear-gradient(rgba(8, 20, 38, 0.38), rgba(8, 20, 38, 0.58)),
+    linear-gradient(
+      rgba(116, 172, 223, 0.85) 18%,
+      rgba(255, 255, 255, 0.55) 38% 62%,
+      rgba(116, 172, 223, 0.85) 82%
+    );
+}
+
+/* ---------- Navbar ---------- */
+.nav {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 30;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 12px;
+  padding: 19px clamp(18px, 4vw, 40px); /* mismo lugar que el título de index */
+  background: var(--blanco);
+  border-bottom: 3px solid var(--marino);
+}
+.marca {
+  font: 400 1.25rem/28px var(--serif); /* mismo tamaño y alto de línea que en index */
+  text-decoration: none;
+  justify-self: start;
+  /* anclado arriba: su posición (40, 24) no depende de lo que tenga el resto del header */
+  align-self: start;
+  margin-top: 5px;
+}
+.redes {
+  min-height: 38px; /* aunque esté vacío, el header mide lo mismo */
+}
+.items {
+  display: flex;
+  gap: 6px;
+}
+.items a {
+  font-weight: 700;
+  text-decoration: none;
+  padding: 6px 13px;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  transition: background 0.15s;
+}
+.items a:hover {
+  background: var(--cielo);
+  border-color: var(--marino);
+}
+.items a[aria-current] {
+  background: var(--sol);
+  border-color: var(--marino);
+  box-shadow: 2px 2px 0 var(--marino);
+}
+.redes {
+  display: flex;
+  gap: 9px;
+  justify-content: flex-end;
+}
+.redes a {
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  background: var(--blanco);
+  border: 2px solid var(--marino);
+  border-radius: 8px;
+  box-shadow: 3px 3px 0 var(--marino);
+  transition:
+    transform 0.1s,
+    box-shadow 0.1s,
+    background 0.15s;
+}
+.redes a:hover {
+  background: var(--cielo);
+}
+.redes a:active {
+  transform: translate(3px, 3px);
+  box-shadow: 0 0 0 var(--marino);
+}
+.redes svg {
+  width: 20px;
+  height: 20px;
+  display: block;
+}
+@media (max-width: 760px) {
+  .nav {
+    grid-template-columns: 1fr auto;
+  }
+  .items {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    justify-content: center;
+  }
+  .redes {
+    grid-row: 1;
+    grid-column: 2;
+  }
+}
+
+/* ---------- Footer con bandera ---------- */
+.pie {
+  position: relative;
+  overflow: hidden;
+  margin-top: 90px;
+  min-height: 600px;
+  background: var(--cielo);
+  border-top: 3px solid var(--marino);
+}
+.bandera {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.pie::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(rgba(238, 244, 250, 0.55), rgba(238, 244, 250, 0) 12%);
+}
+.pie-contenido {
+  position: relative;
+  z-index: 2;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 56px clamp(20px, 5vw, 40px) 0;
+  display: grid;
+  grid-template-columns: 1.6fr 1fr 1fr 1fr 1fr;
+  gap: 32px;
+}
+.pie h3 {
+  font: 800 0.98rem var(--sans);
+  margin: 0 0 14px;
+}
+.pie-contenido a {
+  display: block;
+  width: fit-content; /* el link mide lo que mide su texto, no toda la columna */
+  text-decoration: none;
+  font-weight: 500;
+  padding: 4px 0;
+}
+.pie-contenido a:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 2px;
+}
+.pie .marca-col strong {
+  font: 400 1.3rem var(--serif);
+  display: block;
+}
+.pie .marca-col p {
+  margin: 8px 0 16px;
+  max-width: 36ch;
+  line-height: 1.5;
+  font-size: 0.95rem;
+}
+.pie .marca-col .cta {
+  display: inline-block;
+  font-weight: 800;
+  background: var(--sol);
+  border: 2px solid var(--marino);
+  border-radius: 10px;
+  padding: 10px 16px;
+  box-shadow: 4px 4px 0 var(--marino);
+  transition:
+    transform 0.12s,
+    box-shadow 0.12s;
+}
+.pie .marca-col .cta:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 5px 5px 0 var(--marino);
+  text-decoration: none;
+}
+.pie .marca-col .cta:active {
+  transform: translate(4px, 4px);
+  box-shadow: 0 0 0 var(--marino);
+}
+.pie .copy {
+  font-size: 0.82rem;
+  opacity: 0.7;
+  margin-top: 16px;
+}
+.gigante {
+  position: absolute;
+  z-index: 2;
+  left: 50%;
+  bottom: -0.13em;
+  transform: translateX(-50%);
+  margin: 0;
+  white-space: nowrap;
+  pointer-events: none;
+  font: 400 clamp(2.6rem, 11.5vw, 10.5rem)/0.9 var(--serif);
+  color: var(--blanco);
+  -webkit-text-stroke: 3px var(--marino);
+}
+@media (prefers-reduced-motion: reduce) {
+  .fondo,
+  .fondo.activo {
+    transition: opacity 0.01s;
+    transform: none;
+  }
+}
+
+/* ---------- Cartel de "sin contenido" ---------- */
+.vacio {
+  max-width: 540px;
+  margin-inline: auto; /* centrado */
+  background: var(--blanco);
+  border: 3px solid var(--marino);
+  border-radius: 14px;
+  box-shadow: 8px 8px 0 var(--marino);
+  overflow: hidden;
+  animation: vacio-entra 0.5s ease-out both;
+}
+.vacio[hidden] {
+  display: none;
+}
+.vacio-cab {
+  padding: 10px;
+  border-bottom: 3px solid var(--marino);
+  background: linear-gradient(
+    var(--cielo) 0 33.33%,
+    var(--blanco) 33.33% 66.66%,
+    var(--cielo) 66.66%
+  );
+}
+.vacio-pill {
+  display: inline-block;
+  font-weight: 800;
+  font-size: 0.85rem;
+  background: var(--blanco);
+  border: 3px solid var(--marino);
+  border-radius: 8px;
+  padding: 3px 12px 4px;
+}
+.vacio-cuerpo {
+  padding: 22px 24px 26px;
+  text-align: center;
+}
+.vacio-ic {
+  width: 84px;
+  height: 84px;
+  display: block;
+  margin: 0 auto 8px;
+}
+.vacio h2 {
+  font: 400 clamp(1.5rem, 4vw, 1.9rem) / 1.15 var(--serif);
+  margin: 0 0 10px;
+  text-wrap: balance;
+}
+.vacio p {
+  margin: 0 auto 20px;
+  max-width: 38ch;
+  line-height: 1.5;
+}
+.vacio .cta {
+  display: inline-block;
+  font-weight: 800;
+  text-decoration: none;
+  background: var(--sol);
+  border: 2px solid var(--marino);
+  border-radius: 10px;
+  padding: 11px 18px;
+  box-shadow: 4px 4px 0 var(--marino);
+  transition:
+    transform 0.12s,
+    box-shadow 0.12s;
+}
+.vacio .cta:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 5px 5px 0 var(--marino);
+}
+.vacio .cta:active {
+  transform: translate(4px, 4px);
+  box-shadow: 0 0 0 var(--marino);
+}
+@keyframes vacio-entra {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .vacio {
+    animation: none;
+  }
+}
+
+/* ---------- Skeleton: mismo molde que el contenido real ---------- */
+.sk {
+  display: block;
+  border-radius: 6px;
+  background: linear-gradient(90deg, #dbe5f0 25%, #f1f6fb 50%, #dbe5f0 75%) 0 0 / 200% 100%;
+  animation: sk 1.3s linear infinite;
+}
+.sk-linea {
+  height: 1rem;
+  margin: 0 0 0.55rem;
+}
+@keyframes sk {
+  to {
+    background-position: -200% 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sk {
+    animation: none;
+  }
+}
+
+/* hidden siempre gana, aunque el elemento tenga display propio */
+[hidden] {
+  display: none !important;
+}
+
+/* Sin contenido no hace falta tanto alto: footer más bajo y menos aire */
+body.sin-contenido .pie {
+  margin-top: 48px; /* el alto del footer no cambia: si se achica, el sol pisa los links */
+}
+
+/* Celulares angostos (hasta 320 px): el nav entra completo, sin cortes */
+@media (max-width: 380px) {
+  .nav {
+    gap: 8px;
+  }
+  .marca {
+    white-space: nowrap;
+  }
+  .items {
+    gap: 0;
+    justify-content: space-between;
+  }
+  .items a {
+    padding: 6px 7px;
+    font-size: 0.88rem;
+  }
+  .redes {
+    gap: 7px;
+  }
+  .redes a {
+    width: 34px;
+    height: 34px;
+  }
+  .redes svg {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+
+/* el link del creador va dentro de la frase: en línea, sin el padding de los links de columna */
+.pie .copy a {
+  display: inline;
+  padding: 0;
+}
+
+/* ---------- Footer en tablet y celular ----------
+   El footer mide lo que mide su contenido: texto arriba, bandera (con el sol) abajo, sin pisarse.
+   El borde superior de la bandera se funde con el fondo celeste para que no haya corte. */
+@media (max-width: 1024px) {
+  .pie,
+  body.sin-contenido .pie {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    margin-top: 56px;
+  }
+  .pie-contenido {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 28px 24px;
+    padding-bottom: 8px;
+  }
+  .marca-col {
+    grid-column: 1 / -1;
+  }
+  .bandera {
+    order: 2;
+    position: relative;
+    inset: auto;
+    flex: none;
+    height: 340px;
+    -webkit-mask-image: linear-gradient(to bottom, transparent, #000 80px);
+    mask-image: linear-gradient(to bottom, transparent, #000 80px);
+  }
+}
+@media (max-width: 600px) {
+  .pie-contenido {
+    grid-template-columns: 1fr 1fr;
+  }
+  .bandera {
+    height: 300px;
+  }
+}
+
+/* El footer siempre queda al fondo de la pantalla, aunque haya poco contenido o la ventana sea muy alta */
+body {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+main {
+  flex: 1 0 auto;
+  width: 100%;
+}

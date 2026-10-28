@@ -1,0 +1,30 @@
+/* Footer de solo texto (home y páginas legales). --pie-color lo define cada página. */
+.pie-min {
+  --pie-color: #0f2a4a;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 6px 18px;
+  padding: 18px clamp(16px, 4vw, 40px);
+  font: 500 0.85rem/1.4 "Figtree", system-ui, sans-serif;
+  color: var(--pie-color);
+  text-align: center;
+}
+/* mismo estilo que los links del footer grande: sin subrayado y se subrayan al hover */
+.pie-min a {
+  color: inherit;
+  font-weight: 500;
+  text-decoration: none;
+}
+.pie-min nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 4px 16px;
+}
+.pie-min a:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 2px;
+}

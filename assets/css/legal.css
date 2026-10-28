@@ -1,0 +1,68 @@
+/* Páginas legales (usan base.css para el nav, el fondo y la transición) */
+.legal {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+.legal main {
+  flex: 1;
+  width: 100%;
+}
+.documento {
+  background: var(--blanco);
+  border: 3px solid var(--marino);
+  border-radius: 14px;
+  box-shadow: 8px 8px 0 var(--marino);
+  padding: clamp(20px, 4vw, 40px);
+  line-height: 1.65;
+}
+.documento h2 {
+  font: 400 1.4rem/1.2 var(--serif);
+  margin: 1.6em 0 0.4em;
+}
+.documento p {
+  margin: 0 0 1em;
+}
+.documento .meta {
+  font-size: 0.88rem;
+  opacity: 0.7;
+}
+.documento button {
+  font: 700 0.95rem var(--sans);
+  color: var(--marino);
+  background: var(--sol);
+  border: 2px solid var(--marino);
+  border-radius: 10px;
+  padding: 10px 16px;
+  box-shadow: 4px 4px 0 var(--marino);
+  cursor: pointer;
+}
+.documento button:active {
+  transform: translate(4px, 4px);
+  box-shadow: 0 0 0 var(--marino);
+}
+.legal .pie-min {
+  --pie-color: #fff;
+}
+.legal main {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 150px clamp(16px, 4vw, 40px) 40px;
+}
+@media (max-width: 760px) {
+  .legal main {
+    padding-top: 170px;
+  }
+}
+.legal .encabezado {
+  margin-bottom: 28px;
+  color: var(--blanco);
+}
+.legal .encabezado h1 {
+  font: 400 clamp(2rem, 6vw, 3.6rem) / 1.08 var(--serif);
+  margin: 0 0 10px;
+}
+.legal .encabezado p {
+  margin: 0;
+  opacity: 0.9;
+}

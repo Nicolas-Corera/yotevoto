@@ -1,0 +1,215 @@
+:root {
+  --cielo: #74acdf;
+  --marino: #0f2a4a;
+  --sol: #f6b40e;
+  --blanco: #fff;
+  --papel: #eef4fa;
+  --serif: "Young Serif", Georgia, "Times New Roman", serif;
+  --sans: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+body {
+  font-family: var(--sans);
+  color: var(--marino);
+  background: var(--cielo);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+:focus-visible {
+  outline: 3px solid var(--marino);
+  outline-offset: 3px;
+}
+
+/* ---------- Transición entre páginas (View Transitions) ----------
+   La página vieja queda opaca y la nueva aparece encima: sin parpadeos. */
+@view-transition {
+  navigation: auto;
+}
+.marca {
+  view-transition-name: marca;
+}
+@keyframes vt-entra {
+  from {
+    opacity: 0;
+  }
+}
+::view-transition-image-pair(root) {
+  isolation: auto;
+}
+::view-transition-old(root),
+::view-transition-new(root) {
+  mix-blend-mode: normal;
+}
+::view-transition-old(root) {
+  animation: none;
+}
+::view-transition-new(root) {
+  animation: vt-entra 0.35s ease-out both;
+}
+::view-transition-group(marca) {
+  animation-duration: 0.35s;
+}
+@media (prefers-reduced-motion: reduce) {
+  @view-transition {
+    navigation: none;
+  }
+}
+
+/* ---------- Barra superior (misma posición que index y muro) ---------- */
+.nav {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 76px;
+  padding: 18px clamp(18px, 4vw, 40px);
+}
+.marca {
+  font-family: var(--serif);
+  font-size: 1.25rem;
+  line-height: 28px;
+  align-self: flex-start; /* anclado arriba: misma posición (40, 24) que en muro y presidentes */
+  margin-top: 6px;
+  color: var(--blanco);
+  text-decoration: none;
+}
+
+/* ---------- Fondo: la bandera del index ---------- */
+.bandera {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  z-index: 0;
+}
+
+/* ---------- Contenido ---------- */
+.centro {
+  position: relative;
+  z-index: 1;
+  min-height: 100%;
+  display: grid;
+  place-items: center;
+  padding: 96px 20px 48px;
+}
+@media (min-width: 900px) {
+  .centro {
+    padding-left: calc(50% + 20px); /* la mitad izquierda es del sol */
+  }
+}
+@media (max-width: 899px) {
+  .centro {
+    align-items: start;
+    padding-top: 340px; /* deja lugar al sol arriba */
+  }
+}
+.tarjeta {
+  width: 100%;
+  max-width: 560px;
+  background: var(--blanco);
+  border: 4px solid var(--marino);
+  border-radius: 14px;
+  box-shadow: 10px 10px 0 var(--marino);
+  overflow: hidden;
+  animation: entrar 0.6s cubic-bezier(0.2, 1.2, 0.4, 1) both;
+}
+@keyframes entrar {
+  from {
+    opacity: 0;
+    transform: translateY(24px) scale(0.97);
+  }
+}
+.cabeza {
+  padding: 12px;
+  border-bottom: 4px solid var(--marino);
+  background: linear-gradient(
+    var(--cielo) 0 33.33%,
+    var(--blanco) 33.33% 66.66%,
+    var(--cielo) 66.66%
+  );
+}
+.lista {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 8px;
+  background: var(--blanco);
+  border: 3px solid var(--marino);
+  border-radius: 8px;
+  padding: 3px 14px 4px;
+}
+.lista small {
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+.lista b {
+  font: 400 1.9rem/1.1 var(--serif);
+  letter-spacing: 0.02em;
+}
+.cuerpo {
+  padding: 22px clamp(18px, 5vw, 32px) 30px;
+}
+.pres {
+  margin: 0 0 18px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--marino);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 8px;
+}
+.pres span {
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+.pres strong {
+  font: 400 1.2rem/1.2 var(--serif);
+}
+h1 {
+  font: 400 clamp(2rem, 7vw, 2.8rem) / 1.08 var(--serif);
+  margin: 0 0 12px;
+}
+.texto {
+  margin: 0 0 26px;
+  font-size: 1.08rem;
+  line-height: 1.55;
+  max-width: 42ch;
+}
+.cta {
+  display: inline-block;
+  font: 800 1rem var(--sans);
+  color: var(--marino);
+  text-decoration: none;
+  background: var(--sol);
+  border: 2px solid var(--marino);
+  border-radius: 10px;
+  padding: 12px 22px;
+  box-shadow: 4px 4px 0 var(--marino);
+  transition:
+    transform 0.12s,
+    box-shadow 0.12s;
+}
+.cta:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 5px 5px 0 var(--marino);
+}
+.cta:active {
+  transform: translate(4px, 4px);
+  box-shadow: 0 0 0 var(--marino);
+}
+@media (prefers-reduced-motion: reduce) {
+  .tarjeta {
+    animation: none;
+  }
+}
