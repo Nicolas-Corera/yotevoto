@@ -10,10 +10,10 @@
       href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Figtree:wght@400;500;700;800&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="/assets/css/base.css?v=20261029-7" />
-    <link rel="stylesheet" href="/assets/css/legal.css?v=20261029-7" />
-    <link rel="stylesheet" href="/assets/css/pie-min.css?v=20261029-7" />
-    <link rel="stylesheet" href="/assets/css/consent.css?v=20261029-7" />
+    <link rel="stylesheet" href="/assets/css/base.css?v=20261029-8" />
+    <link rel="stylesheet" href="/assets/css/legal.css?v=20261029-8" />
+    <link rel="stylesheet" href="/assets/css/pie-min.css?v=20261029-8" />
+    <link rel="stylesheet" href="/assets/css/consent.css?v=20261029-8" />
     <script type="speculationrules">
       { "prerender": [{ "where": { "href_matches": "/*" }, "eagerness": "moderate" }] }
     </script>
@@ -34,16 +34,80 @@
     <main>
       <div class="encabezado">
         <h1>Política de privacidad</h1>
-        <p>Texto provisorio: reemplazar por el contenido definitivo.</p>
+        <p>Qué datos tratamos, para qué y qué derechos tenés.</p>
       </div>
       <article class="documento">
-        <p class="meta">Última actualización: 28 de octubre de 2026</p>
-      <h2>1. Primera sección</h2>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-      <h2>2. Segunda sección</h2>
-      <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-      <h2>3. Tercera sección</h2>
-      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+        <p class="meta">Última actualización: 28 de octubre de 2026 · Versión 1</p>
+
+        <p>Esta política explica qué datos trata <strong>Yo Te Voto</strong>, para qué y qué derechos tenés, conforme a la Ley 25.326 de Protección de Datos Personales y su Decreto 1558/2001.</p>
+
+        <h2>1. Responsable</h2>
+        <p>IntercomSite (<mark class="completar">[COMPLETAR: razón social o nombre completo]</mark>, CUIT <mark class="completar">[COMPLETAR: CUIT]</mark>, domicilio en <mark class="completar">[COMPLETAR: domicilio legal]</mark>). Contacto de privacidad: <mark class="completar">[COMPLETAR: correo de privacidad]</mark>. Registro ante la AAIP (Registro Nacional de Bases de Datos): <mark class="completar">[COMPLETAR: número de inscripción, o dejar asentado que no corresponde]</mark>.</p>
+
+        <h2>2. Qué datos tratamos</h2>
+        <table>
+          <thead><tr><th>Dato</th><th>De dónde sale</th><th>Para qué</th><th>¿Es público?</th></tr></thead>
+          <tbody>
+            <tr><td>Nombre o seudónimo</td><td>Lo escribís vos</td><td>Firmar tu propuesta</td><td><strong>Sí</strong></td></tr>
+            <tr><td>Texto de la propuesta (puede revelar opiniones políticas)</td><td>Lo escribís vos</td><td>Publicarla y que se vote</td><td><strong>Sí</strong></td></tr>
+            <tr><td>Identificador de dispositivo (un código aleatorio guardado en tu navegador) y su huella (hash)</td><td>Se genera en tu navegador</td><td>Evitar votos duplicados y abuso</td><td>No</td></tr>
+            <tr><td>Huella (hash) de tu IP (la IP no se guarda)</td><td>Tu conexión</td><td>Límites por red y antiabuso</td><td>No</td></tr>
+            <tr><td>Tu voto (a favor o en contra)</td><td>Lo elegís vos</td><td>Escrutinio semanal</td><td>No: solo totales al cierre</td></tr>
+            <tr><td>Tus reportes</td><td>Los hacés vos</td><td>Moderación</td><td>No</td></tr>
+            <tr><td>Contadores de frecuencia</td><td>Sistema</td><td>Antiabuso</td><td>No</td></tr>
+            <tr><td>Registros técnicos del hosting y del servidor</td><td>Infraestructura</td><td>Seguridad y diagnóstico</td><td>No</td></tr>
+          </tbody>
+        </table>
+        <p>No te pedimos cuenta, correo ni teléfono para usar el sitio.</p>
+
+        <h2>3. Para qué y con qué base</h2>
+        <p>Tratamos estos datos para operar el servicio, hacer el escrutinio, prevenir el abuso, moderar contenido y mantener la seguridad. La base es tu <strong>consentimiento libre, expreso e informado</strong> (art. 5 de la Ley 25.326), que das al usar el sitio. Las opiniones políticas son datos sensibles (art. 2): no te las pedimos, pero si tu propuesta las contiene las estás publicando voluntariamente. No hacemos perfiles, no vendemos datos y no los usamos para publicidad.</p>
+
+        <h2>4. El voto secreto: qué es y qué no es</h2>
+        <p>El sitio no muestra a nadie cómo votó cada persona ni cuántos votos tiene cada propuesta mientras la urna está abierta. Sin embargo, <strong>cada voto queda asociado técnicamente a una huella (hash) de tu dispositivo y de tu conexión</strong>, para impedir votos duplicados. Esas huellas se calculan con una clave secreta del servidor (HMAC-SHA256): no se guarda tu IP, pero sí son datos seudonimizados, no anónimos. No las usamos para identificarte.</p>
+
+        <h2>5. Con quién compartimos datos</h2>
+        <p>Usamos proveedores que tratan datos por encargo nuestro y con las medidas contractuales correspondientes:</p>
+        <ul>
+          <li><strong>Supabase</strong>: base de datos y funciones del servidor. Región de alojamiento: <mark class="completar">[COMPLETAR: región del proyecto]</mark>.</li>
+          <li><strong>Cloudflare</strong>: alojamiento del sitio, DNS y red de distribución.</li>
+          <li><strong>Google Fonts</strong> (tipografías) y <strong>jsDelivr / cdnjs</strong> (bibliotecas de código): al cargar la página, tu navegador les envía tu IP.</li>
+        </ul>
+        <p>No cedemos tus datos a otras personas ni empresas salvo requerimiento de autoridad competente.</p>
+
+        <h2>6. Transferencias internacionales</h2>
+        <p>Algunos de esos proveedores pueden almacenar o tratar datos fuera de la Argentina, incluso en países que la normativa argentina no considera de nivel adecuado. En esos casos aplicamos las cláusulas contractuales modelo de la AAIP y, cuando corresponde, tu consentimiento informado (art. 12 de la Ley 25.326).</p>
+
+        <h2>7. Cuánto tiempo los guardamos</h2>
+        <ul>
+          <li>Propuestas: mientras el servicio exista, salvo que pidas la baja.</li>
+          <li>Votos, reportes y huellas (hash) de dispositivo y de red: mientras sean necesarios para el escrutinio y el antiabuso, hasta <mark class="completar">[COMPLETAR: plazo de conservación]</mark>.</li>
+          <li>Contadores de frecuencia: se borran automáticamente a las pocas horas.</li>
+          <li>Registros técnicos de los proveedores: según sus propias políticas.</li>
+        </ul>
+
+        <h2>8. Seguridad</h2>
+        <p>Aplicamos medidas técnicas razonables: las huellas de IP y de dispositivo se calculan con una clave secreta del servidor, el navegador solo puede leer lo público, toda escritura pasa por funciones del servidor con límites de frecuencia, y el sitio se sirve por HTTPS con orígenes restringidos. Ningún sistema es infalible; si ocurriera un incidente que te afecte, te avisaremos por el sitio y, cuando corresponda, a la AAIP.</p>
+
+        <h2>9. Tus derechos</h2>
+        <p>Tenés derecho a <strong>acceder</strong> a tus datos (respondemos en 10 días corridos), a <strong>rectificarlos</strong> y a <strong>suprimirlos</strong> (5 días hábiles), conforme a los arts. 14 a 16 de la Ley 25.326 y el Decreto 1558/2001. Para ejercerlos escribí a <mark class="completar">[COMPLETAR: correo de privacidad]</mark>. Como no hay cuentas, indicanos el número de lista, el texto o la fecha de tu propuesta para poder ubicarla; para los datos asociados al dispositivo, necesitaremos que nos indiques el código guardado en tu navegador.</p>
+        <p class="aviso">El titular de los datos personales tiene la facultad de ejercer el derecho de acceso a los mismos en forma gratuita a intervalos no inferiores a seis meses, salvo que se acredite un interés legítimo al efecto conforme lo establecido en el artículo 14, inciso 3 de la Ley Nº 25.326. La Agencia de Acceso a la Información Pública, en su carácter de Órgano de Control de la Ley Nº 25.326, tiene la atribución de atender las denuncias y reclamos que interpongan quienes resulten afectados en sus derechos por incumplimiento de las normas vigentes en materia de protección de datos personales.</p>
+
+        <h2>10. Menores de edad</h2>
+        <p>El sitio no está dirigido a menores de <mark class="completar">[COMPLETAR: edad mínima, sugerido 16 años]</mark> años. Si detectamos que un menor lo usó sin autorización de sus representantes, eliminaremos sus datos y contenido.</p>
+
+        <h2>11. Decisiones automatizadas</h2>
+        <p>Dos decisiones son automáticas: una propuesta se oculta al recibir reportes de 5 conexiones distintas, y el ganador de la semana se determina por la cantidad de votos a favor. Podés pedir una revisión humana escribiendo a <mark class="completar">[COMPLETAR: correo de denuncias]</mark>.</p>
+
+        <h2>12. Datos de terceros en las propuestas</h2>
+        <p>Está prohibido incluir datos personales de otras personas. Si aparece alguno, podés pedir su baja por el canal de denuncias de los <a href="/terminos/">Términos</a>.</p>
+
+        <h2>13. Cookies y almacenamiento local</h2>
+        <p>El sitio guarda información en tu navegador. El detalle está en la <a href="/cookies/">Política de cookies</a>.</p>
+
+        <h2>14. Cambios</h2>
+        <p>Si modificamos esta política, publicamos la nueva versión en esta página con su fecha.</p>
+
       </article>
     </main>
 
@@ -52,7 +116,7 @@
       <nav aria-label="Legales"><a href="/terminos/">Términos</a><a href="/privacidad/">Política de privacidad</a><a href="/cookies/">Cookies</a><a href="/legales/">Legales</a></nav>
       <span>Creado por <a class="creador" href="https://intercomsite.com.ar" target="_blank" rel="noopener">IntercomSite</a></span>
     </footer>
-    <script defer src="/assets/js/fondos.js?v=20261029-7"></script>
-    <script defer src="/assets/js/consent.js?v=20261029-7"></script>
+    <script defer src="/assets/js/fondos.js?v=20261029-8"></script>
+    <script defer src="/assets/js/consent.js?v=20261029-8"></script>
   </body>
 </html>

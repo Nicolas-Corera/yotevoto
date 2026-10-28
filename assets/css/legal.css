@@ -23,6 +23,66 @@
 .documento p {
   margin: 0 0 1em;
 }
+.documento h3 {
+  font: 700 1.05rem/1.3 var(--sans);
+  margin: 1.2em 0 0.3em;
+}
+.documento ul,
+.documento ol {
+  margin: 0 0 1em;
+  padding-left: 1.4em;
+}
+.documento li {
+  margin: 0 0 0.45em;
+}
+.documento a {
+  color: var(--marino);
+  font-weight: 700;
+}
+.documento code {
+  font: 600 0.88em ui-monospace, Consolas, monospace;
+  background: var(--papel);
+  padding: 1px 6px;
+  border-radius: 5px;
+}
+.documento table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0 0 1.2em;
+  font-size: 0.92rem;
+}
+.documento th,
+.documento td {
+  text-align: left;
+  vertical-align: top;
+  padding: 9px 10px;
+  border-bottom: 2px dashed rgba(15, 42, 74, 0.28);
+}
+.documento th {
+  font-weight: 800;
+  border-bottom: 2px solid var(--marino);
+}
+@media (max-width: 640px) {
+  .documento table {
+    display: block;
+    overflow-x: auto;
+  }
+}
+.documento .aviso {
+  font-size: 0.88rem;
+  padding: 12px 14px;
+  background: var(--papel);
+  border: 2px solid var(--marino);
+  border-radius: 10px;
+}
+/* Datos que faltan completar (ver README): se ven a propósito para no publicarlos por error */
+.documento mark.completar {
+  background: var(--sol);
+  color: var(--marino);
+  font-weight: 700;
+  padding: 0 4px;
+  border-radius: 4px;
+}
 .documento .meta {
   font-size: 0.88rem;
   opacity: 0.7;
