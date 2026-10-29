@@ -24,12 +24,40 @@
 /* sin anuncio para mostrar: el hueco desaparece */
 .ad-slot:has(ins[data-ad-status="unfilled"]) { display: none; }
 
-/* La home tiene el botón Publicar justo arriba: más aire para evitar clics accidentales */
-.ad-slot--home { margin-top: 72px; }
+/* Laterales (rascacielos 160x600): viven DENTRO del main y se quedan fijos al scrollear (sticky),
+   pero frenan donde termina el main, o sea en el margen entre el banner y el footer: nunca lo pasan.
+   Solo en pantallas anchas para no tapar contenido; cada página tiene su ancho de contenido (--ad-c)
+   y su separación (--ad-gap), por eso su propio corte de pantalla. */
+main:has(> .ad-col) { position: relative; }
+.ad-col {
+  display: none;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 160px;
+  pointer-events: none;
+}
+.ad-col--izq { left: calc(50% - var(--ad-c) / 2 - var(--ad-gap) - 160px); }
+.ad-col--der { right: calc(50% - var(--ad-c) / 2 - var(--ad-gap) - 160px); }
+.ad-col--home { --ad-c: 560px; --ad-gap: 150px; }
+.ad-col--pres { --ad-c: 1100px; --ad-gap: 16px; }
+.ad-col--muro { --ad-c: 1220px; --ad-gap: 16px; }
+@media (min-width: 1200px) { .ad-col--home { display: block; } }
+@media (min-width: 1460px) { .ad-col--pres { display: block; } }
+@media (min-width: 1600px) { .ad-col--muro { display: block; } }
+.ad-rail {
+  position: sticky;
+  top: 110px;
+  width: 160px;
+  min-height: 0;
+  max-height: calc(100vh - 130px);
+  margin: 0;
+  pointer-events: auto;
+}
+.ad-rail .adsbygoogle { min-height: 600px; }
 
 /* vista previa local */
 .ad-slot--demo {
-  display: flex;
   align-items: center;
   justify-content: center;
   border: 2px dashed currentColor;
@@ -37,4 +65,6 @@
   font: 600 14px/1.2 "Figtree", system-ui, sans-serif;
   opacity: 0.6;
 }
+.ad-slot--demo { display: flex; }
+.ad-rail.ad-slot--demo { height: min(600px, calc(100vh - 130px)); }
 .ad-slot--demo::before { content: none; }

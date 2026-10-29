@@ -6,8 +6,8 @@
   const ADS = {
     enabled: false,
     client: "ca-pub-2066576602777227",
-    /* data-ad del hueco -> ID del bloque de anuncios que crees en AdSense (10 dígitos) */
-    slots: { home: "", "muro-arriba": "", "muro-abajo": "", presidentes: "" },
+    /* data-ad del hueco -> ID del bloque de anuncios de AdSense (10 dígitos). Son 3 bloques y se reutilizan en todas las páginas */
+    slots: { "lateral-izq": "", "lateral-der": "", banner: "" },
   };
 
   const huecos = [...document.querySelectorAll("[data-ad]")];
