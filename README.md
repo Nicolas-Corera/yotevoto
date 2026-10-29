@@ -176,7 +176,7 @@ El frontend **no requiere compilación ni gestor de paquetes**: son archivos est
 - **Escape de HTML** en todo el texto de los usuarios antes de mostrarlo.
 - **Resultados protegidos:** las vistas de escrutinio solo exponen semanas ya cerradas.
 - El escrutinio es **secreto** mientras la urna está abierta.
-- **Consentimiento de cookies** con banner; hoy el sitio no usa cookies de seguimiento.
+- **Consentimiento de cookies** con banner: sin analítica ni seguimiento propio; la publicidad de Google AdSense solo se carga si la persona elige «Aceptar todas» (`assets/js/ads.js`).
 - Las claves públicas del cliente (`config.js`) están pensadas para ser públicas; la seguridad descansa en RLS y en las funciones.
 
 > **Límites asumidos del voto por IP:** una persona determinada puede cambiar de red o de dispositivo para votar de nuevo. El sistema reduce el abuso casual y masivo, pero no ofrece identidad verificada.
