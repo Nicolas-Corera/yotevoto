@@ -1,5 +1,5 @@
 begin;
-select plan(32);
+select plan(33);
 
 -- RLS y FORCE en todas las tablas
 select is((select count(*)::int from pg_class c join pg_namespace n on n.oid = c.relnamespace
@@ -71,6 +71,12 @@ select is((select array_agg(table_name::text order by table_name) from informati
 select is((select count(*)::int from information_schema.role_table_grants
            where table_schema = 'public' and grantee in ('anon', 'authenticated') and privilege_type <> 'SELECT'),
           0, 'anon/authenticated no tienen privilegios de escritura');
+
+-- Ninguna función de public (SECURITY DEFINER o no) es ejecutable por anon/authenticated vía rpc
+select is((select count(*)::int from pg_proc p join pg_namespace n on n.oid = p.pronamespace
+           where n.nspname = 'public' and p.prokind = 'f'
+             and (has_function_privilege('anon', p.oid, 'EXECUTE') or has_function_privilege('authenticated', p.oid, 'EXECUTE'))),
+          0, 'ninguna función de public es ejecutable por anon/authenticated');
 
 select * from finish();
 rollback;
