@@ -1,11 +1,11 @@
 /* Google AdSense. Hoy está APAGADO: no se carga nada de Google hasta que:
-   1) enabled = true, 2) client tenga tu ID real (ca-pub-XXXXXXXXXXXXXXXX),
+   1) enabled = true, 2) client tenga tu ID real (ca-pub-2066576602777227),
    3) el hueco tenga su ID de bloque en `slots`, y 4) la persona haya aceptado "Aceptar todas" en el banner de cookies.
    Antes de activar: ampliar la CSP de _headers (bloque comentado) y actualizar /privacidad/ y /cookies/. */
 (() => {
   const ADS = {
     enabled: false,
-    client: "ca-pub-XXXXXXXXXXXXXXXX",
+    client: "ca-pub-2066576602777227",
     /* data-ad del hueco -> ID del bloque de anuncios que crees en AdSense (10 dígitos) */
     slots: { home: "", "muro-arriba": "", "muro-abajo": "", presidentes: "" },
   };
