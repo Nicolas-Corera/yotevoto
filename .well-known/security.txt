@@ -1,4 +1,4 @@
-Contact: mailto:contacto@intercomsite.com.ar
+Contact: mailto:contacto@yotevoto.com.ar
 Expires: 2027-10-28T00:00:00.000Z
 Preferred-Languages: es, en
 Canonical: https://yotevoto.com.ar/.well-known/security.txt
