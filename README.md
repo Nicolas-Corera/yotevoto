@@ -4,7 +4,7 @@
 
 Sitio web estático con backend en tiempo real, voto anónimo sin registro y un diseño propio inspirado en la boleta electoral argentina.
 
-**Estado:** en desarrollo · **Idioma de la interfaz:** español (Argentina) · **Autor:** [IntercomSite](https://intercomsite.com.ar)
+**Estado:** en desarrollo · **Idioma de la interfaz:** español (Argentina)
 
 ---
 
@@ -330,8 +330,8 @@ Las claves de servicio y las contraseñas **no deben subirse al repositorio** (`
 
 ## Licencia
 
-**Copyright © 2026 IntercomSite. Todos los derechos reservados.**
+**Copyright © 2026 Yo Te Voto. Todos los derechos reservados.**
 
 Este software es **propietario**. No se concede ningún permiso para usarlo, copiarlo, clonarlo, modificarlo, distribuirlo ni crear obras derivadas. Los términos completos están en [LICENSE.md](LICENSE.md).
 
-Contacto: <https://intercomsite.com.ar>
+Contacto: <contacto@yotevoto.com.ar>

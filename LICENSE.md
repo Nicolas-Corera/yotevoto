@@ -1,8 +1,8 @@
 # Licencia
 
-**Copyright © 2026 IntercomSite. Todos los derechos reservados.**
+**Copyright © 2026 Yo Te Voto. Todos los derechos reservados.**
 
-Este software y todos los materiales que lo acompañan —incluyendo, sin limitación, el código fuente (HTML, CSS, JavaScript, TypeScript y SQL), el diseño visual, la identidad gráfica, los textos, la estructura de la base de datos, las migraciones, las funciones del servidor, la documentación y toda obra derivada— (en conjunto, el «Software») son propiedad exclusiva de **IntercomSite** («el Titular»).
+Este software y todos los materiales que lo acompañan —incluyendo, sin limitación, el código fuente (HTML, CSS, JavaScript, TypeScript y SQL), el diseño visual, la identidad gráfica, los textos, la estructura de la base de datos, las migraciones, las funciones del servidor, la documentación y toda obra derivada— (en conjunto, el «Software») son propiedad exclusiva de **Yo Te Voto** («el Titular»).
 
 El Software **no es de código abierto**, no se distribuye bajo ninguna licencia libre y **no se otorga ninguna licencia, permiso o derecho** sobre él, salvo lo que el Titular conceda por escrito, de forma expresa y firmada.
 
@@ -51,8 +51,8 @@ Este documento se rige por las leyes de la **República Argentina**. Para cualqu
 
 ## 9. Autorizaciones y contacto
 
-Toda solicitud de licencia, autorización de uso o consulta sobre este documento debe dirigirse al Titular a través de **https://intercomsite.com.ar**. Ninguna autorización es válida si no consta por escrito y firmada por el Titular.
+Toda solicitud de licencia, autorización de uso o consulta sobre este documento debe dirigirse al Titular a través de **contacto@yotevoto.com.ar**. Ninguna autorización es válida si no consta por escrito y firmada por el Titular.
 
 ---
 
-**IntercomSite** · Todos los derechos reservados · 2026
+**Yo Te Voto** · Todos los derechos reservados · 2026

@@ -504,12 +504,6 @@ body.sin-contenido .pie {
 }
 
 
-/* el link del creador va dentro de la frase: en línea, sin el padding de los links de columna */
-.pie .copy a {
-  display: inline;
-  padding: 0;
-}
-
 /* ---------- Footer en tablet y celular ----------
    El footer mide lo que mide su contenido: texto arriba, bandera (con el sol) abajo, sin pisarse.
    El borde superior de la bandera se funde con el fondo celeste para que no haya corte. */
