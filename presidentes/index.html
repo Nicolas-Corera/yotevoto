@@ -1,18 +1,109 @@
 <!doctype html>
-<html lang="es">
+<html lang="es-AR">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Presidentes · Yo Te Voto</title>
+    <title>Candidatos a la Presidencia | Yo Te Voto</title>
+    <meta name="description" content="Escrutinio semanal de Yo Te Voto: mirá qué propuesta ganó la presidencia cada semana y cuántos votos obtuvo." />
+    <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1" />
+    <link rel="canonical" href="https://yotevoto.com.ar/presidentes/" />
+    <meta name="application-name" content="Yo Te Voto" />
+    <meta name="author" content="IntercomSite" />
+    <!-- AdSense: descomentar y poner el ID real cuando exista
+    <meta name="google-adsense-account" content="ca-pub-XXXXXXXXXXXXXXXX" /> -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Yo Te Voto" />
+    <meta property="og:locale" content="es_AR" />
+    <meta property="og:title" content="Candidatos a la Presidencia | Yo Te Voto" />
+    <meta property="og:description" content="Escrutinio semanal de Yo Te Voto: mirá qué propuesta ganó la presidencia cada semana y cuántos votos obtuvo." />
+    <meta property="og:url" content="https://yotevoto.com.ar/presidentes/" />
+    <meta property="og:image" content="https://yotevoto.com.ar/assets/img/brand/og-presidentes.png" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Yo Te Voto: un pájaro que deposita su voto en una urna" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Candidatos a la Presidencia | Yo Te Voto" />
+    <meta name="twitter:description" content="Escrutinio semanal de Yo Te Voto: mirá qué propuesta ganó la presidencia cada semana y cuántos votos obtuvo." />
+    <meta name="twitter:image" content="https://yotevoto.com.ar/assets/img/brand/og-presidentes.png" />
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/brand/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/brand/favicon-16.png" />
+    <link rel="apple-touch-icon" href="/assets/img/brand/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#74acdf" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Organization",
+            "@id": "https://yotevoto.com.ar/#organizacion",
+            "name": "Yo Te Voto",
+            "url": "https://yotevoto.com.ar/",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://yotevoto.com.ar/assets/img/brand/logo.png",
+              "width": 1024,
+              "height": 1024
+            },
+            "email": "contacto@intercomsite.com.ar"
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://yotevoto.com.ar/#sitio",
+            "url": "https://yotevoto.com.ar/",
+            "name": "Yo Te Voto",
+            "inLanguage": "es-AR",
+            "publisher": {
+              "@id": "https://yotevoto.com.ar/#organizacion"
+            }
+          },
+          {
+            "@type": "CollectionPage",
+            "@id": "https://yotevoto.com.ar/presidentes/#pagina",
+            "url": "https://yotevoto.com.ar/presidentes/",
+            "name": "Candidatos a la Presidencia | Yo Te Voto",
+            "description": "Escrutinio semanal de Yo Te Voto: mirá qué propuesta ganó la presidencia cada semana y cuántos votos obtuvo.",
+            "inLanguage": "es-AR",
+            "isPartOf": {
+              "@id": "https://yotevoto.com.ar/#sitio"
+            },
+            "breadcrumb": {
+              "@id": "https://yotevoto.com.ar/presidentes/#migas"
+            }
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://yotevoto.com.ar/presidentes/#migas",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Inicio",
+                "item": "https://yotevoto.com.ar/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Candidatos a la Presidencia",
+                "item": "https://yotevoto.com.ar/presidentes/"
+              }
+            ]
+          }
+        ]
+      }
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Figtree:wght@400;500;700;800&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="/assets/css/base.css?v=20261029-9" />
-    <link rel="stylesheet" href="/assets/css/presidentes.css?v=20261029-9" />
-    <link rel="stylesheet" href="/assets/css/consent.css?v=20261029-9" />
+    <link rel="stylesheet" href="/assets/css/base.css?v=20261029-10" />
+    <link rel="stylesheet" href="/assets/css/presidentes.css?v=20261029-10" />
+    <link rel="stylesheet" href="/assets/css/consent.css?v=20261029-10" />
+    <link rel="stylesheet" href="/assets/css/ads.css?v=20261029-10" />
     <script type="speculationrules">
       { "prerender": [{ "where": { "href_matches": "/*" }, "eagerness": "moderate" }] }
     </script>
@@ -197,6 +288,7 @@
         <div id="resultado"></div>
         <footer class="panel-pie" id="datos"></footer>
       </section>
+      <aside class="ad-slot" data-ad="presidentes" aria-label="Publicidad" hidden></aside>
     </main>
 
     <footer class="pie" id="pie">
@@ -232,11 +324,12 @@
       <p class="gigante" aria-hidden="true">Yo Te Voto</p>
     </footer>
     <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js" integrity="sha384-0w2KAL2YHP6wKOkUDzkCDGgVvfmHnj02DHeQ6XcHOgTfFsGyonKOpShMH1x6nk9o" crossorigin="anonymous"></script>
-    <script defer src="/assets/js/config.js?v=20261029-9"></script>
-    <script defer src="/assets/js/api.js?v=20261029-9"></script>
-    <script defer src="/assets/js/bandera.js?v=20261029-9"></script>
-    <script defer src="/assets/js/fondos.js?v=20261029-9"></script>
-    <script defer src="/assets/js/presidentes.js?v=20261029-9"></script>
-    <script defer src="/assets/js/consent.js?v=20261029-9"></script>
+    <script defer src="/assets/js/config.js?v=20261029-10"></script>
+    <script defer src="/assets/js/api.js?v=20261029-10"></script>
+    <script defer src="/assets/js/bandera.js?v=20261029-10"></script>
+    <script defer src="/assets/js/fondos.js?v=20261029-10"></script>
+    <script defer src="/assets/js/presidentes.js?v=20261029-10"></script>
+    <script defer src="/assets/js/consent.js?v=20261029-10"></script>
+    <script defer src="/assets/js/ads.js?v=20261029-10"></script>
   </body>
 </html>

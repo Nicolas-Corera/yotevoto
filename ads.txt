@@ -1,0 +1,2 @@
+# Google AdSense: reemplazar XXXXXXXXXXXXXXXX por tu ID de editor (pub-...) y borrar el "#" de la linea.
+# google.com, pub-XXXXXXXXXXXXXXXX, DIRECT, f08c47fec0942fa0

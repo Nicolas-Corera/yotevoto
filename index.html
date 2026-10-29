@@ -1,9 +1,78 @@
 <!doctype html>
-<html lang="es">
+<html lang="es-AR">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Yo Te Voto</title>
+    <title>Cuarto de Propuestas | Yo Te Voto</title>
+    <meta name="description" content="Escribí qué harías como presidente de Argentina y votá. La propuesta más votada de la semana gana el cargo. Participá gratis." />
+    <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1" />
+    <link rel="canonical" href="https://yotevoto.com.ar/" />
+    <meta name="application-name" content="Yo Te Voto" />
+    <meta name="author" content="IntercomSite" />
+    <!-- AdSense: descomentar y poner el ID real cuando exista
+    <meta name="google-adsense-account" content="ca-pub-XXXXXXXXXXXXXXXX" /> -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Yo Te Voto" />
+    <meta property="og:locale" content="es_AR" />
+    <meta property="og:title" content="Cuarto de Propuestas | Yo Te Voto" />
+    <meta property="og:description" content="Escribí qué harías como presidente de Argentina y votá. La propuesta más votada de la semana gana el cargo. Participá gratis." />
+    <meta property="og:url" content="https://yotevoto.com.ar/" />
+    <meta property="og:image" content="https://yotevoto.com.ar/assets/img/brand/og-default.png" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Yo Te Voto: un pájaro que deposita su voto en una urna" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Cuarto de Propuestas | Yo Te Voto" />
+    <meta name="twitter:description" content="Escribí qué harías como presidente de Argentina y votá. La propuesta más votada de la semana gana el cargo. Participá gratis." />
+    <meta name="twitter:image" content="https://yotevoto.com.ar/assets/img/brand/og-default.png" />
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/brand/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/brand/favicon-16.png" />
+    <link rel="apple-touch-icon" href="/assets/img/brand/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#74acdf" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Organization",
+            "@id": "https://yotevoto.com.ar/#organizacion",
+            "name": "Yo Te Voto",
+            "url": "https://yotevoto.com.ar/",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://yotevoto.com.ar/assets/img/brand/logo.png",
+              "width": 1024,
+              "height": 1024
+            },
+            "email": "contacto@intercomsite.com.ar"
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://yotevoto.com.ar/#sitio",
+            "url": "https://yotevoto.com.ar/",
+            "name": "Yo Te Voto",
+            "inLanguage": "es-AR",
+            "publisher": {
+              "@id": "https://yotevoto.com.ar/#organizacion"
+            }
+          },
+          {
+            "@type": "WebPage",
+            "@id": "https://yotevoto.com.ar/#pagina",
+            "url": "https://yotevoto.com.ar/",
+            "name": "Cuarto de Propuestas | Yo Te Voto",
+            "description": "Escribí qué harías como presidente de Argentina y votá. La propuesta más votada de la semana gana el cargo. Participá gratis.",
+            "inLanguage": "es-AR",
+            "isPartOf": {
+              "@id": "https://yotevoto.com.ar/#sitio"
+            }
+          }
+        ]
+      }
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -11,14 +80,15 @@
       rel="stylesheet"
     />
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
-    <link rel="stylesheet" href="/assets/css/home.css?v=20261029-9" />
-    <link rel="stylesheet" href="/assets/css/pie-min.css?v=20261029-9" />
-    <link rel="stylesheet" href="/assets/css/consent.css?v=20261029-9" />
-    <link rel="stylesheet" href="/assets/css/tour.css?v=20261029-9" />
+    <link rel="stylesheet" href="/assets/css/home.css?v=20261029-10" />
+    <link rel="stylesheet" href="/assets/css/pie-min.css?v=20261029-10" />
+    <link rel="stylesheet" href="/assets/css/consent.css?v=20261029-10" />
+    <link rel="stylesheet" href="/assets/css/tour.css?v=20261029-10" />
+    <link rel="stylesheet" href="/assets/css/ads.css?v=20261029-10" />
     <script type="speculationrules">
       { "prerender": [{ "where": { "href_matches": "/*" }, "eagerness": "moderate" }] }
     </script>
-    <noscript><link rel="stylesheet" href="/assets/css/sin-js.css?v=20261029-9" /></noscript>
+    <noscript><link rel="stylesheet" href="/assets/css/sin-js.css?v=20261029-10" /></noscript>
   </head>
   <body>
     <header class="nav">
@@ -181,6 +251,8 @@
       </form>
     </main>
 
+    <aside class="ad-slot ad-slot--home" data-ad="home" aria-label="Publicidad" hidden></aside>
+
     <footer class="pie-min">
       <span>© 2026 Yo Te Voto. Hecho en Argentina.</span>
       <nav aria-label="Información"><a href="/como-funciona/">Cómo funciona</a><a href="/reglas/">Reglas</a><a href="mailto:contacto@intercomsite.com.ar">Contacto</a></nav>
@@ -196,11 +268,12 @@
       integrity="sha384-g4NTh/Iv5PPU4xPyhEWqPcwtNXOvdaDI8LLnyYfyNZOjKJeYQyjzQ9X5275eBjpt"
       crossorigin="anonymous"
     ></script>
-    <script defer src="/assets/js/config.js?v=20261029-9"></script>
-    <script defer src="/assets/js/api.js?v=20261029-9"></script>
-    <script defer src="/assets/js/bandera.js?v=20261029-9"></script>
-    <script defer src="/assets/js/tour.js?v=20261029-9"></script>
-    <script defer src="/assets/js/home.js?v=20261029-9"></script>
-    <script defer src="/assets/js/consent.js?v=20261029-9"></script>
+    <script defer src="/assets/js/config.js?v=20261029-10"></script>
+    <script defer src="/assets/js/api.js?v=20261029-10"></script>
+    <script defer src="/assets/js/bandera.js?v=20261029-10"></script>
+    <script defer src="/assets/js/tour.js?v=20261029-10"></script>
+    <script defer src="/assets/js/home.js?v=20261029-10"></script>
+    <script defer src="/assets/js/consent.js?v=20261029-10"></script>
+    <script defer src="/assets/js/ads.js?v=20261029-10"></script>
   </body>
 </html>

@@ -1,0 +1,40 @@
+/* Huecos publicitarios. Reservan alto fijo para que el anuncio no empuje el contenido al cargar (CLS). */
+.ad-slot {
+  display: block;
+  position: relative;
+  box-sizing: border-box;
+  width: min(100% - 32px, 970px);
+  min-height: 120px;
+  margin: 40px auto;
+  text-align: center;
+  overflow: hidden;
+  clear: both;
+}
+.ad-slot[hidden] { display: none; }
+.ad-slot::before {
+  content: "Publicidad";
+  display: block;
+  margin-bottom: 6px;
+  font: 500 11px/1 "Figtree", system-ui, sans-serif;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.55;
+}
+.ad-slot .adsbygoogle { display: block; min-height: 90px; }
+/* sin anuncio para mostrar: el hueco desaparece */
+.ad-slot:has(ins[data-ad-status="unfilled"]) { display: none; }
+
+/* La home tiene el botón Publicar justo arriba: más aire para evitar clics accidentales */
+.ad-slot--home { margin-top: 72px; }
+
+/* vista previa local */
+.ad-slot--demo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px dashed currentColor;
+  border-radius: 12px;
+  font: 600 14px/1.2 "Figtree", system-ui, sans-serif;
+  opacity: 0.6;
+}
+.ad-slot--demo::before { content: none; }

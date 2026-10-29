@@ -11,6 +11,8 @@ LOCAL = "http://127.0.0.1:55321 ws://127.0.0.1:55321"
 def leer_cabeceras():
     cab = {}
     for linea in open("_headers", encoding="utf-8"):
+        if cab and not linea.strip():
+            break  # solo el bloque "/*"; las reglas por ruta (cache, content-type) las aplica Cloudflare
         m = re.match(r"\s+([\w-]+):\s*(.+)", linea)
         if m and m.group(1).lower() != "strict-transport-security":
             cab[m.group(1)] = m.group(2).strip()

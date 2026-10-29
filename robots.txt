@@ -1,0 +1,20 @@
+# Yo Te Voto - https://yotevoto.com.ar
+# Todo el sitio es publico. No se bloquean CSS/JS/imagenes: Google los necesita para renderizar las paginas.
+
+User-agent: *
+Allow: /
+
+# Los bots de Google Ads/AdSense ignoran el grupo "*": se nombran explicitamente
+User-agent: Mediapartners-Google
+Allow: /
+
+User-agent: AdsBot-Google
+Allow: /
+
+User-agent: AdsBot-Google-Mobile
+Allow: /
+
+User-agent: Googlebot-Image
+Allow: /
+
+Sitemap: https://yotevoto.com.ar/sitemap.xml
