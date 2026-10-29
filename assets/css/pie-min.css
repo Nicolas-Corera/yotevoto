@@ -28,3 +28,26 @@
   text-underline-offset: 3px;
   text-decoration-thickness: 2px;
 }
+
+/* Grupos del pie: © | información | legales | autoría. En pantallas anchas van en una fila con divisores;
+   en las angostas se apilan, centrados, para que nada quede cortado ni desparejo. */
+@media (min-width: 1100px) {
+  .pie-min {
+    gap: 6px 0;
+  }
+  .pie-min > * + * {
+    margin-left: 18px;
+    padding-left: 18px;
+    border-left: 2px solid color-mix(in srgb, var(--pie-color) 28%, transparent);
+  }
+}
+@media (max-width: 1099px) {
+  .pie-min {
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 10px;
+  }
+  .pie-min nav {
+    gap: 6px 18px;
+  }
+}

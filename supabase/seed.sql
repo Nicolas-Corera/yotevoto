@@ -3,25 +3,25 @@
 --   update public.semanas set ganador_id = null;
 --   truncate public.votos, public.reportes, public.limites, public.escrutinio;
 --   delete from public.propuestas;
---   delete from public.semanas where n <> 44;
+--   delete from public.semanas where n <> (select min(n) from public.semanas where not cerrada);
 do $$
 declare
-  v_id bigint; v_hoy int := 44;
+  v_id bigint; v_hoy int := 4;
   r record; c record; k int;
   semanas_cerradas jsonb := '[
-    {"n":43,"i":"2026-10-19 00:00:00-03","f":"2026-10-25 23:59:59-03","c":[
+    {"n":3,"i":"2026-10-19 00:00:00-03","f":"2026-10-25 23:59:59-03","c":[
       ["Lucía M.","Que el asado del domingo sea feriado nacional, con carbón y chimichurri garantizados por el Estado.",442,60],
       ["Tomás G.","Plan Nacional del Bondi: boleto gratis los lunes, aire acondicionado que funcione y frecuencia máxima de 10 minutos.",372,40],
       ["Camila R.","Crear el Ministerio de la Siesta, con 30 minutos de descanso obligatorio después del almuerzo.",281,30],
       ["Valentina S.","Mate caliente en todas las oficinas públicas y yerba de buena calidad, siempre.",116,20],
       ["Nacho","Wifi gratis en todas las plazas del país.",72,10]]},
-    {"n":42,"i":"2026-10-12 00:00:00-03","f":"2026-10-18 23:59:59-03","c":[
+    {"n":2,"i":"2026-10-12 00:00:00-03","f":"2026-10-18 23:59:59-03","c":[
       ["Mariana L.","Los audios de WhatsApp de más de dos minutos se convierten automáticamente en texto.",398,50],
       ["Fede P.","Que el dulce de leche tenga denominación de origen en todo el mundo.",301,40],
       ["Bruno A.","Una cancha de fútbol con iluminación gratuita en cada barrio.",215,30],
       ["Sofía T.","Los lunes empiezan a las 11. Es lo justo.",148,20],
       ["Julián K.","Prohibido hacer spoilers en la mesa a la hora de la cena.",64,10]]},
-    {"n":41,"i":"2026-10-05 00:00:00-03","f":"2026-10-11 23:59:59-03","c":[
+    {"n":1,"i":"2026-10-05 00:00:00-03","f":"2026-10-11 23:59:59-03","c":[
       ["Lola B.","Un feriado puente por cada fin de semana largo, sin excepciones.",301,40],
       ["Martín D.","Que los colectivos avisen por altoparlante cuando se acerca la parada.",247,30],
       ["Agustina C.","Dulce de leche gratis en todos los desayunos escolares.",176,20],
@@ -29,6 +29,8 @@ declare
       ["Rocío F.","Que el bondi tenga enchufes para cargar el celular.",41,5]]}
   ]';
 begin
+  -- la migración inicial crea la semana abierta como 44: en la demo es la 4 (después de 3 cerradas)
+  update public.semanas set n = v_hoy where n = 44 and not cerrada;
   for r in select * from jsonb_array_elements(semanas_cerradas) loop
     insert into public.semanas (n, inicio, fin, cerrada)
       values ((r.value->>'n')::int, (r.value->>'i')::timestamptz, (r.value->>'f')::timestamptz, true);

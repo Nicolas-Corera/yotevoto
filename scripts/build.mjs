@@ -6,7 +6,7 @@ import { join } from "node:path";
 
 const PUBLICAR = [
   "index.html", "404.html", "_headers",
-  "muro", "presidentes", "terminos", "privacidad", "cookies", "legales", "assets",
+  "muro", "presidentes", "terminos", "privacidad", "cookies", "legales", "como-funciona", "reglas", "assets",
 ];
 // Nada de esto puede terminar publicado
 const PROHIBIDO = [/(^|\/)\.env/, /(^|\/)supabase(\/|$)/, /(^|\/)scripts(\/|$)/, /(^|\/)\.bak(\/|$)/, /\.sql$/, /\.md$/, /\.py$/];
