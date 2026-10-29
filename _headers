@@ -1,5 +1,5 @@
 /*
-  Content-Security-Policy: default-src 'self'; script-src 'self' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com 'inline-speculation-rules'; style-src 'self' https://fonts.googleapis.com; style-src-attr 'unsafe-inline'; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://gklrjkasnkdqlotvynlq.supabase.co wss://gklrjkasnkdqlotvynlq.supabase.co; frame-ancestors 'none'; base-uri 'none'; form-action 'self'; object-src 'none'; upgrade-insecure-requests
+  Content-Security-Policy: default-src 'self'; script-src 'self' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://pagead2.googlesyndication.com https://*.adtrafficquality.google 'inline-speculation-rules'; style-src 'self' https://fonts.googleapis.com; style-src-attr 'unsafe-inline'; font-src https://fonts.gstatic.com; img-src 'self' data: https:; frame-src https://googleads.g.doubleclick.net https://tpc.googlesyndication.com https://*.google.com; connect-src 'self' https://gklrjkasnkdqlotvynlq.supabase.co wss://gklrjkasnkdqlotvynlq.supabase.co https://pagead2.googlesyndication.com https://*.google.com https://*.adtrafficquality.google; frame-ancestors 'none'; base-uri 'none'; form-action 'self'; object-src 'none'; upgrade-insecure-requests
   Strict-Transport-Security: max-age=31536000; includeSubDomains
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
@@ -33,8 +33,5 @@
 /assets/img/brand/*
   Cache-Control: public, max-age=604800
 
-# --- GOOGLE ADSENSE (hoy apagado) ---
-# Al activar AdSense (ads.js: enabled=true), reemplazar la linea Content-Security-Policy de "/*" por esta
-# (agrega solo los dominios de Google; frame-ancestors y X-Frame-Options siguen igual):
-#
-# Content-Security-Policy: default-src 'self'; script-src 'self' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://pagead2.googlesyndication.com https://*.adtrafficquality.google 'inline-speculation-rules'; style-src 'self' https://fonts.googleapis.com; style-src-attr 'unsafe-inline'; font-src https://fonts.gstatic.com; img-src 'self' data: https:; frame-src https://googleads.g.doubleclick.net https://tpc.googlesyndication.com https://*.google.com; connect-src 'self' https://gklrjkasnkdqlotvynlq.supabase.co wss://gklrjkasnkdqlotvynlq.supabase.co https://pagead2.googlesyndication.com https://*.google.com https://*.adtrafficquality.google; frame-ancestors 'none'; base-uri 'none'; form-action 'self'; object-src 'none'; upgrade-insecure-requests
+# AdSense activo: la CSP de "/*" ya incluye los dominios de Google (scripts, iframes de anuncios, imagenes y conexiones).
+# frame-ancestors 'none' y X-Frame-Options siguen igual: nadie puede meter este sitio en un iframe.

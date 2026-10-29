@@ -1,20 +1,20 @@
-/* Google AdSense. Hoy está APAGADO: no se carga nada de Google hasta que:
+/* Google AdSense. Se carga solo si se cumple todo esto:
    1) enabled = true, 2) client tenga tu ID real (ca-pub-2066576602777227),
    3) el hueco tenga su ID de bloque en `slots`, y 4) la persona haya aceptado "Aceptar todas" en el banner de cookies.
-   Antes de activar: ampliar la CSP de _headers (bloque comentado) y actualizar /privacidad/ y /cookies/. */
+   Para apagarlo de golpe: enabled = false. */
 (() => {
   const ADS = {
-    enabled: false,
+    enabled: true,
     client: "ca-pub-2066576602777227",
     /* data-ad del hueco -> ID del bloque de anuncios de AdSense (10 dígitos). Son 3 bloques y se reutilizan en todas las páginas */
-    slots: { "lateral-izq": "", "lateral-der": "", banner: "" },
+    slots: { "lateral-izq": "4068262506", "lateral-der": "2755180834", banner: "5507794690" },
   };
 
   const huecos = [...document.querySelectorAll("[data-ad]")];
   if (!huecos.length) return;
 
-  /* En tu máquina se ven los huecos marcados para que sepas dónde irá cada anuncio */
-  if (["localhost", "127.0.0.1"].includes(location.hostname) && !ADS.enabled) {
+  /* En tu máquina nunca se piden anuncios reales (evita impresiones inválidas): se ven los huecos marcados */
+  if (["localhost", "127.0.0.1"].includes(location.hostname)) {
     for (const h of huecos) {
       h.hidden = false;
       h.classList.add("ad-slot--demo");

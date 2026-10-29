@@ -1,5 +1,5 @@
 /* Banner de consentimiento de cookies. Guarda la decisión en localStorage ("necesarias" | "todas").
-   Hoy el sitio no usa cookies de seguimiento: cuando se sumen (analítica, etc.), cargalas solo si
+   Las cookies de publicidad (Google AdSense, ver ads.js) y cualquier analítica futura se cargan solo si
    Cookies.estado() === "todas". Avisa con el evento "cookies:decidido". */
 (() => {
   const K = "cookies";
@@ -17,7 +17,7 @@
     d.className = "cookies";
     d.setAttribute("role", "dialog");
     d.setAttribute("aria-label", "Consentimiento de cookies");
-    d.innerHTML = `<p><strong>Usamos cookies</strong>Usamos almacenamiento propio para que el sitio funcione (por ejemplo, recordar tus votos) y, si lo aceptás, para mejorarlo. <a href="/cookies/">Más información</a></p>
+    d.innerHTML = `<p><strong>Usamos cookies</strong>Usamos almacenamiento propio para que el sitio funcione (por ejemplo, recordar tus votos) y, si lo aceptás, para mostrar publicidad de Google AdSense. <a href="/cookies/">Más información</a></p>
       <div class="cookies-btns"><button type="button" data-v="necesarias">Solo necesarias</button><button type="button" class="ok" data-v="todas">Aceptar todas</button></div>`;
     d.addEventListener("click", (e) => {
       const b = e.target.closest("[data-v]");
