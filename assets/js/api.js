@@ -47,9 +47,10 @@ const API = (() => {
     db: window.supabase?.createClient(url, anon, { auth: { persistSession: false } }),
     mios,
     publicar: (nombre, texto) => llamar("publicar", { nombre, texto }),
-    async votar(id, tipo) {
+    async votar(id, tipo, semana) {
       await llamar("votar", { propuesta_id: id, tipo });
       marcar(id, "voto", tipo);
+      marcar(id, "sem", semana);
     },
     async reportar(id) {
       await llamar("reportar", { propuesta_id: id });

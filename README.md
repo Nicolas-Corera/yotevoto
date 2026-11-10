@@ -36,7 +36,7 @@ Sitio web estático con backend en tiempo real, voto anónimo sin registro y un 
 1. **Proponés.** En la portada escribís tu nombre y qué harías como presidente (hasta 500 caracteres, con formato).
 2. **Se publica en el muro.** Tu propuesta aparece como una *boleta* con su número de lista, visible para todos al instante.
 3. **Se vota.** Cada persona puede votar a favor o en contra, o reportar. Los votos son **secretos**: nadie ve cuántos tiene cada propuesta mientras la urna está abierta.
-4. **Gana la más votada.** Cada domingo a las 23:59 (hora argentina) se cierra la semana, se cuentan los votos y se publica el escrutinio en **Presidentes**. La semana siguiente arranca sola.
+4. **Gana la más votada.** Cada domingo a las 23:59 (hora argentina) se cierra la semana, se cuentan los votos y se publica el escrutinio en **Presidentes**. La semana siguiente arranca sola: **las propuestas no desaparecen**, siguen en el muro y compiten de nuevo (cada semana se vota otra vez, con la urna en cero).
 
 ## Características
 

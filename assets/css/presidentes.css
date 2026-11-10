@@ -184,7 +184,7 @@ svg.ic {
 }
 
 .fila {
-  --escala: 82;
+  --escala: 100;
   display: grid;
   grid-template-columns: 36px 88px 1fr;
   gap: 16px;
@@ -298,14 +298,18 @@ a.prop:focus-visible {
 }
 .listo .relleno {
   width: calc(var(--r) * var(--escala) * 1%);
+  min-width: 92px; /* que el porcentaje siempre entre dentro de la barra */
 }
 .pct {
   position: absolute;
-  left: 100%;
+  right: 6px;
   top: 50%;
   transform: translateY(-50%);
-  margin-left: 10px;
-  font: 400 1.35rem/1 var(--serif);
+  padding: 4px 8px;
+  background: var(--papel);
+  border: 2px solid var(--marino);
+  border-radius: 6px;
+  font: 400 1.05rem/1 var(--serif);
   white-space: nowrap;
   opacity: 0;
   transition: opacity 0.5s;
@@ -338,7 +342,6 @@ a.prop:focus-visible {
 }
 @media (max-width: 600px) {
   .fila {
-    --escala: 54;
     grid-template-columns: 26px 62px 1fr;
     gap: 10px;
     padding: 14px;
@@ -355,7 +358,7 @@ a.prop:focus-visible {
     font-size: 1.1rem;
   }
   .pct {
-    font-size: 1.1rem;
+    font-size: 0.95rem;
   }
 }
 @media (prefers-reduced-motion: reduce) {

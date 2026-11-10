@@ -39,12 +39,12 @@ begin
         values (c.value->>0, c.value->>1, (r.value->>'n')::int, (r.value->>'i')::timestamptz + interval '1 day')
         returning id into v_id;
       for k in 1..(c.value->>2)::int loop
-        insert into public.votos (propuesta_id, tipo, ip_hash, device_hash)
-          values (v_id, 'like', md5('ip' || v_id || k), md5('dev' || v_id || k));
+        insert into public.votos (propuesta_id, tipo, ip_hash, device_hash, semana)
+          values (v_id, 'like', md5('ip' || v_id || k), md5('dev' || v_id || k), (r.value->>'n')::int);
       end loop;
       for k in 1..(c.value->>3)::int loop
-        insert into public.votos (propuesta_id, tipo, ip_hash, device_hash)
-          values (v_id, 'dislike', md5('ipd' || v_id || k), md5('devd' || v_id || k));
+        insert into public.votos (propuesta_id, tipo, ip_hash, device_hash, semana)
+          values (v_id, 'dislike', md5('ipd' || v_id || k), md5('devd' || v_id || k), (r.value->>'n')::int);
       end loop;
     end loop;
     update public.semanas set ganador_id = (

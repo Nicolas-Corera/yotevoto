@@ -40,7 +40,7 @@ Deno.test("realtime: aviso solo con id, sin fuga de ocultas ni de votos, y anon 
   assertEquals(escucha.recibidos.filter((r) => r.tipo === "oculta").length, 0, "un aviso falsificado por anon llegó a otro cliente");
 
   // Un voto y un ocultamiento reales hechos por el servidor
-  await sql(`insert into public.votos (propuesta_id, tipo, ip_hash, device_hash) values (${id}, 'like', 'rt-ip', 'rt-dev');`);
+  await sql(`insert into public.votos (propuesta_id, tipo, ip_hash, device_hash, semana) values (${id}, 'like', 'rt-ip', 'rt-dev', ${semana});`);
   await sql(`update public.propuestas set estado = 'oculta' where id = ${id};`);
   await espera(2500);
 
