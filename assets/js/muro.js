@@ -451,7 +451,6 @@ function quitarBoleta(id) {
 async function cargarMuro() {
   const { data: sem } = await API.db.from("semanas").select("n").eq("cerrada", false).order("n").limit(1);
   semanaActual = sem?.[0]?.n ?? null;
-  if (semanaActual) API.sellar(semanaActual);
   generacion++;
   cargando = false;
   fin = false;

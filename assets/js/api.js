@@ -43,16 +43,7 @@ const API = (() => {
     guardar("mios", JSON.stringify(m));
   };
 
-  /* votos guardados antes de que el voto tuviera semana: pertenecen a la semana abierta */
-  const sellar = (semana) => {
-    const m = mios();
-    let cambio = false;
-    for (const id in m) if (m[id].voto && m[id].sem === undefined) ((m[id].sem = semana), (cambio = true));
-    if (cambio) guardar("mios", JSON.stringify(m));
-  };
-
   return {
-    sellar,
     db: window.supabase?.createClient(url, anon, { auth: { persistSession: false } }),
     mios,
     publicar: (nombre, texto) => llamar("publicar", { nombre, texto }),
