@@ -23,7 +23,11 @@ const esc = (s) =>
 /* Votos optimistas: lo visual cambia al instante; el pedido va en segundo plano y solo se revierte si falla.
    `pendientes` guarda lo que todavía no confirmó el servidor, para que un re-render no lo pierda. */
 const pendientes = new Map();
-const estadoDe = (id) => ({ ...API.mios()[id], ...pendientes.get(id) });
+/* el voto vale por semana (cada semana se vota de nuevo); el reporte es para siempre */
+const estadoDe = (id) => {
+  const m = API.mios()[id] || {};
+  return { ...(m.sem === semanaActual ? { voto: m.voto } : {}), reporte: m.reporte, ...pendientes.get(id) };
+};
 
 const ICONOS = {
   like: '<span class="material-symbols-rounded" aria-hidden="true">thumb_up</span>',
@@ -388,7 +392,6 @@ async function cargarMas(primera = false) {
   const { data, error } = await API.db
     .from("propuestas")
     .select("id,nombre,texto,created_at")
-    .eq("semana", semanaActual)
     .gt("id", primera ? 0 : ultimoId)
     .order("id", { ascending: true })
     .limit(PAGINA);
@@ -419,7 +422,7 @@ async function cargarMas(primera = false) {
 
 /* una propuesta nueva en vivo: si ya se llegó al final se suma ahí; si no, la traerá el scroll */
 function anexar(p) {
-  if (p.semana !== semanaActual || !fin || veces.has(p.id)) return;
+  if (!semanaActual || !fin || veces.has(p.id)) return; /* las propuestas de semanas anteriores siguen en el muro */
   veces.add(p.id);
   ultimoId = Math.max(ultimoId, p.id);
   const ult = bloques[bloques.length - 1];
@@ -561,7 +564,7 @@ bento.addEventListener("click", (e) => {
   pendientes.set(id, { ...previo, [campo]: tipo === "report" ? true : tipo });
 
   /* 2. el pedido, en segundo plano y en orden */
-  const enviar = () => (tipo === "report" ? API.reportar(id) : API.votar(id, tipo));
+  const enviar = () => (tipo === "report" ? API.reportar(id) : API.votar(id, tipo, semanaActual));
   const p = (colas.get(id) || Promise.resolve())
     .then(enviar)
     .then(

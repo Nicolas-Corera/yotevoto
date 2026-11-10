@@ -1,12 +1,12 @@
 begin;
-select plan(17);
+select plan(20);
 
 -- Semana abierta con datos
 insert into public.propuestas (nombre, texto, semana)
   select 'A', 'propuesta de prueba', n from public.semanas where not cerrada;
 create temp table t as select id, semana from public.propuestas where texto = 'propuesta de prueba';
 grant select on t to anon, authenticated;
-insert into public.votos (propuesta_id, tipo, ip_hash, device_hash) select id, 'like', 'ip1', 'd1' from t;
+insert into public.votos (propuesta_id, tipo, ip_hash, device_hash, semana) select id, 'like', 'ip1', 'd1', semana from t;
 
 -- Vistas: invoker y solo cerradas
 select ok((select bool_and(coalesce(reloptions::text, '') like '%security_invoker=true%')
@@ -25,14 +25,21 @@ select is((select emitidos from public.resumen_semana where semana = (select sem
 reset role;
 select is((select count(*)::int from public.semanas where not cerrada), 1, 'se abrió la semana siguiente');
 
+-- Las propuestas NO desaparecen: siguen visibles, se pueden votar de nuevo y compiten en la semana nueva
+select is((select estado from public.propuestas where id = (select id from t limit 1)), 'visible', 'la propuesta sigue visible tras cerrar la semana');
+select is(public.registrar_voto((select id from t limit 1), 'like', 'ip1', 'd1', 3), 'ok', 'la misma propuesta se vota de nuevo en la semana nueva');
+do $$ begin perform public.cerrar_semana(true); end $$;
+select is((select favor from public.escrutinio where propuesta_id = (select id from t limit 1)
+             and semana = (select max(n) from public.semanas where cerrada)), 1, 'la propuesta compite en la semana siguiente');
+
 -- Integridad
 select throws_ok($$insert into public.semanas (n, inicio, fin) values (9001, now(), now() + interval '1 day')$$, '23505', null, 'segunda semana abierta');
 select throws_ok($$insert into public.propuestas (nombre, texto, semana) select repeat('x', 41), 'texto valido', n from public.semanas where not cerrada$$, '23514', null, 'nombre de 41');
 select throws_ok($$insert into public.propuestas (nombre, texto, semana) select 'n', 'abcd', n from public.semanas where not cerrada$$, '23514', null, 'texto de 4');
 select throws_ok($$insert into public.propuestas (nombre, texto, semana) select 'n', 'abc' || chr(1) || 'def', n from public.semanas where not cerrada$$, '23514', null, 'control en texto');
 select throws_ok($$insert into public.propuestas (nombre, texto, semana, estado) select 'n', 'texto valido', n, 'borrada' from public.semanas where not cerrada$$, '23514', null, 'estado inválido');
-select throws_ok($$insert into public.votos (propuesta_id, tipo, ip_hash, device_hash) select id, 'favor', 'a', 'b' from t$$, '23514', null, 'tipo de voto inválido');
-select throws_ok($$insert into public.votos (propuesta_id, tipo, ip_hash, device_hash) select id, 'like', 'ipX', 'd1' from t$$, '23505', null, 'voto duplicado por dispositivo');
+select throws_ok($$insert into public.votos (propuesta_id, tipo, ip_hash, device_hash, semana) select id, 'favor', 'a', 'b', semana from t$$, '23514', null, 'tipo de voto inválido');
+select throws_ok($$insert into public.votos (propuesta_id, tipo, ip_hash, device_hash, semana) select id, 'like', 'ipX', 'd1', semana from t$$, '23505', null, 'voto duplicado por dispositivo en la misma semana');
 
 insert into public.propuestas (nombre, texto, semana)
   select 'B', 'otra propuesta', n from public.semanas where not cerrada;

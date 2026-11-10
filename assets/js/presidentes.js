@@ -101,7 +101,7 @@ async function cargarSemanas() {
   if (ab.data[0]) {
     const [pa, pr] = await Promise.all([
       API.db.from("participacion").select("emitidos").eq("semana", ab.data[0].n).maybeSingle(),
-      API.db.from("propuestas").select("id,nombre,texto").eq("semana", ab.data[0].n).order("created_at"),
+      API.db.from("propuestas").select("id,nombre,texto").lte("semana", ab.data[0].n).order("created_at"), /* compiten todas, también las de semanas anteriores */
     ]);
     actual = { semana: ab.data[0].n, inicio: ab.data[0].inicio, fin: ab.data[0].fin, cerrada: false, emitidos: pa.data?.emitidos ?? 0 };
     props = pr.data || [];
